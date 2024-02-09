@@ -5,20 +5,12 @@ import Layout from './components/Layout';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+      <nav className="navbar navbar-dark bg-dark">
+        <a className="navbar-brand" href="#!">
+          <img src={logo} className="App-logo" alt="logo" />
+          <strong>React Starter Dev</strong>
         </a>
-      </header>
+      </nav>
       <Layout />
     </div>
   );
