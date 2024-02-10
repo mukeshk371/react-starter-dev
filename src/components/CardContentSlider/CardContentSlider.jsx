@@ -61,7 +61,7 @@ const CardContentSlider = ({ scientists, onClick }) => {
   );
 };
 
-const App = () => {
+const CardContentSliderApp = () => {
   const [selectedScientist, setSelectedScientist] = useState(null);
 
   const handleClick = (scientist) => {
@@ -74,31 +74,39 @@ const App = () => {
 
   return (
     <div>
-      <h1 className="text-center">Indian Scientists Carousel</h1>
       {selectedScientist ? (
         <div>
-          <button
-            onClick={handleBack}
-            className="btn btn-primary m-2 d-flex align-items-center"
-          >
-            <ArrowLeft className="mr-1" /> Back to Card View
-          </button>
+          <div className="position-relative px-2 py-1">
+            <button
+              onClick={handleBack}
+              className="btn btn-primary d-flex align-items-center position-absolute top-50 translate-middle-y"
+            >
+              <ArrowLeft /> <span className="ms-2 d-block">Back to Card View</span>
+            </button>
+            <h1 className="text-center">Indian Scientists Carousel</h1>
+            <span />
+          </div>
 
-          <img
-            src={selectedScientist.image}
-            className="w-25"
-            alt={selectedScientist.name}
-          />
-          <h2>{selectedScientist.name}</h2>
-          <p>Field: {selectedScientist.field}</p>
-          <p>Birthdate: {selectedScientist.birthdate}</p>
-          <p>Description: {selectedScientist.description}</p>
+          <div className="p-2">
+            <img
+              src={selectedScientist.image}
+              className="w-25"
+              alt={selectedScientist.name}
+            />
+            <h2>{selectedScientist.name}</h2>
+            <strong className="d-block">Field: {selectedScientist.field}</strong>
+            <strong className="d-block">Birthdate: {selectedScientist.birthdate}</strong>
+            <p>Description: {selectedScientist.description}</p>
+          </div>
         </div>
       ) : (
-        <CardContentSlider scientists={scientists} onClick={handleClick} />
+        <>
+          <h1 className="text-center">Indian Scientists Carousel</h1>
+          <CardContentSlider scientists={scientists} onClick={handleClick} />
+        </>
       )}
     </div>
   );
 };
 
-export default App;
+export default CardContentSliderApp;
