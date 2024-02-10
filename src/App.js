@@ -1,18 +1,26 @@
-import logo from './logo.svg';
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Layout from './components/Layout';
+import CardContentSliderApp from './components/CardContentSlider/CardContentSlider';
+import ButtonClick from './components/Forms/ButtonClick';
+import Form from './components/Forms/Form';
+import NavBar from './components/NavBar/NavBar'; 
+
 
 function App() {
   return (
-    <div className="App">
-      <nav className="navbar navbar-dark bg-dark">
-        <a className="navbar-brand" href="#!">
-          <img src={logo} className="App-logo" alt="logo" />
-          <strong>React Starter Dev</strong>
-        </a>
-      </nav>
-      <Layout />
-    </div>
+    <Router>
+      <div>
+        <NavBar />
+        <div className="container mt-4">
+          <Routes>
+            <Route path="/card-content-slider-app" element={<CardContentSliderApp/>} />
+            <Route path="/form" element={<Form/>} />
+            <Route path="/button-click" element={<ButtonClick/>} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 
