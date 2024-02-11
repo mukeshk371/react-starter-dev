@@ -18,7 +18,7 @@ export default function ButtonClick() {
         <div className="col-md-6">
           <div className="card">
             <div className="card-header bg-info text-white">Toolbar</div>
-            <div className="card-body" onClick={() => {
+            <div className="card-body d-flex justify-content-around" onClick={() => {
               alert('You clicked on the toolbar!');
             }}>
               <Button onClick={() => alert('Playing!')}>

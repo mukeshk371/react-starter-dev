@@ -4,7 +4,7 @@ import logo from '../../logo.svg';
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <Link className="navbar-brand d-flex align-items-center" to="/">
         <img src={logo} className='App-logo' alt="Logo" height="30" />
         <strong className="ms-2">React Starter Dev</strong>
@@ -15,16 +15,10 @@ const NavBar = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="/card-content-slider-app">Card Content Slider App</Link>
-          </li>
-          <li className="nav-item">
             <Link className="nav-link" to="/form">Form</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/button-click">Button Click</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/state-object-update">State Object Update</Link>
+            <Link className="nav-link" to="/card-content-slider-app">Card Content Slider App</Link>
           </li>
         </ul>
       </div>

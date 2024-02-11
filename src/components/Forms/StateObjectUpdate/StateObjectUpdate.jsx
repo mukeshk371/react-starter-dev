@@ -48,7 +48,7 @@ export default function StateObjectUpdate() {
   }
 
   return (
-    <div className="container mt-5">
+    <>
       <h1 className="text-center">State Object Update</h1>
       <div className="row">
         <div className="col-lg-6">
@@ -119,6 +119,6 @@ export default function StateObjectUpdate() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
