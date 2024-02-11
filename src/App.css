@@ -1,5 +1,5 @@
 .App-logo {
-  height: 10vmin;
+  height: 5vmin;
   pointer-events: none;
 }
 
@@ -16,4 +16,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.body-wrapper {
+  padding-top: 71px;
 }

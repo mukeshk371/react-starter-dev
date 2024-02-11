@@ -27,23 +27,34 @@ const Form = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center">
-      <div>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Enter a value"
-          className="form-control"
-        />
-        <button className="btn btn-primary" onClick={handleButtonClick}>
-          Add to paragraph
-        </button>
-        <button className="btn btn-success" onClick={handleClearClick}>
-          Clear
-        </button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <p>{displayedValue}</p>
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="Enter a value"
+            className="form-control mb-2"
+          />
+        </div>
+        <div className="col-md-6">
+          <button className="btn btn-primary mb-2" onClick={handleButtonClick}>
+            Add to paragraph
+          </button>
+          <button
+            className="btn btn-success mb-2 mx-2"
+            onClick={handleClearClick}
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+      {error && <p className="text-danger">{error}</p>}
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <p>{displayedValue}</p>
+        </div>
       </div>
     </div>
   );

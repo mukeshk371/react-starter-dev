@@ -4,21 +4,21 @@ import logo from '../../logo.svg';
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-dark justify-content-between" data-bs-theme="dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <Link className="navbar-brand d-flex align-items-center" to="/">
-        <img src={logo} alt="Logo" height="30" />
-        <strong>React Starter Dev</strong>
+        <img src={logo} className='App-logo' alt="Logo" height="30" />
+        <strong className="ms-2">React Starter Dev</strong>
       </Link>
-      <div className="collapse navbar-collapse color-white" id="navbarNav">
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/card-content-slider-app">Card Content Slider App</Link>
-          </li>
           <li className="nav-item">
             <Link className="nav-link" to="/form">Form</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/button-click">Button Click</Link>
+            <Link className="nav-link" to="/card-content-slider-app">Card Content Slider App</Link>
           </li>
         </ul>
       </div>
