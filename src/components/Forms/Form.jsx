@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
-const Form = () => {
+const MyForm = () => {
   const [inputValue, setInputValue] = useState("");
   const [displayedValue, setDisplayedValue] = useState("");
   const [error, setError] = useState("");
@@ -27,37 +28,42 @@ const Form = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <input
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col md={6}>
+          <Form.Control
             type="text"
             value={inputValue}
             onChange={handleInputChange}
             placeholder="Enter a value"
-            className="form-control mb-2"
+            className="mb-2"
           />
-        </div>
-        <div className="col-md-6">
-          <button className="btn btn-primary mb-2" onClick={handleButtonClick}>
+        </Col>
+        <Col md={6}>
+          <Button
+            className="mb-2"
+            onClick={handleButtonClick}
+            variant="primary"
+          >
             Add to paragraph
-          </button>
-          <button
-            className="btn btn-success mb-2 mx-2"
+          </Button>
+          <Button
+            className="mb-2 mx-2"
             onClick={handleClearClick}
+            variant="success"
           >
             Clear
-          </button>
-        </div>
-      </div>
-      {error && <p className="text-danger">{error}</p>}
-      <div className="row justify-content-center">
-        <div className="col-md-6">
+          </Button>
+        </Col>
+      </Row>
+      {error && <Alert variant="danger">{error}</Alert>}
+      <Row className="justify-content-center">
+        <Col md={6}>
           <p>{displayedValue}</p>
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
-export default Form;
+export default MyForm;
