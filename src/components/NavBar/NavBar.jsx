@@ -29,6 +29,11 @@ const NavBar = () => {
                 Card Content Slider App
               </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+              <Nav.Link as={Link} to="/custom-tab">
+                Custom Tab
+              </Nav.Link>
+            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>
