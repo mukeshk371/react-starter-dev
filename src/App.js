@@ -5,6 +5,7 @@ import ButtonClick from './components/Forms/ButtonClick';
 import NavBar from './components/NavBar/NavBar';
 import StateObjectUpdate from './components/Forms/StateObjectUpdate/StateObjectUpdate';
 import FormRouter from './components/Forms/FormRouter/FormRouter';
+import CustomTab from './components/CustomComponents/CustomTab';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/button-click" element={<ButtonClick />} />
             <Route path="/state-object-update" element={<StateObjectUpdate />} />
             <Route index element={<Navigate to="/card-content-slider-app" />} />
+            <Route path="/custom-tab" element={<CustomTab />} />
           </Routes>
         </div>
       </div>
