@@ -6,12 +6,14 @@ import NavBar from './components/NavBar/NavBar';
 import StateObjectUpdate from './components/Forms/StateObjectUpdate/StateObjectUpdate';
 import FormRouter from './components/Forms/FormRouter/FormRouter';
 import CustomTab from './components/CustomComponents/CustomTab';
+import CustomNavBar from './components/CustomComponents/CustomNavBar/CustomNavBar';
 
 function App() {
   return (
     <Router>
       <div className='body-wrapper'>
         <NavBar />
+        <CustomNavBar />
         <div className="container mt-4">
           <Routes>
             <Route path="/card-content-slider-app" element={<CardContentSliderApp />} />
