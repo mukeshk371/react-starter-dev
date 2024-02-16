@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import CardContentSliderApp from "../CardContentSlider/CardContentSlider";
-import ButtonClick from "../Forms/ButtonClick";
-import StateObjectUpdate from "../Forms/StateObjectUpdate/StateObjectUpdate";
-import FormRouter from "../Forms/FormRouter/FormRouter";
+import CardContentSliderApp from "../../CardContentSlider/CardContentSlider";
+import ButtonClick from "../../Forms/ButtonClick";
+import StateObjectUpdate from "../../Forms/StateObjectUpdate/StateObjectUpdate";
+import FormRouter from "../../Forms/FormRouter/FormRouter";
 import styles from "./CustomTab.module.scss";
 
 const CustomTab = () => {
