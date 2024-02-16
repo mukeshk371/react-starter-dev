@@ -35,7 +35,7 @@ const CustomNavBar = () => {
       <div className={styles.navbarCustom}>
         <a href="/" target="_self">
           <img src={logo} className="App-logo" alt="Logo" height="30" />
-          <strong>React Starter Dev</strong>
+          <strong>Custom NavBar</strong>
         </a>
         <div
           className={`nav-item ${activeTab === "CardContentSliderApp" ? styles.activeTab : ""}`}
