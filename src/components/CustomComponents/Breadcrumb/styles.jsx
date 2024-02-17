@@ -1,4 +1,7 @@
-.breadcrumbCustom{
+import styled from "styled-components";
+
+export const BreadcrumbStyles = styled.div`
+.breadcrumb-custom {
     background-color: #563d7c;
     padding: 0 20px;
     display: flex;
@@ -11,6 +14,7 @@
         left: 20px;
         top: 50%;
         transform: translateY(-50%);
+
         strong {
             color: #fff;
         }
@@ -32,7 +36,6 @@
             display: inline-block;
             padding: 0 20px;
             color: #6c757d;
-            content: "\21D2";
         }
 
         &:first-of-type {
@@ -60,3 +63,4 @@
         }
     }
 }
+`;
