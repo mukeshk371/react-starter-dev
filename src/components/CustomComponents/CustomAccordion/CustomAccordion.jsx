@@ -1,4 +1,3 @@
-// AppWithAccordion.js
 import React from "react";
 import {
   AppContainer,
