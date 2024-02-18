@@ -3,7 +3,7 @@ import CardContentSliderApp from "../../CardContentSlider/CardContentSlider";
 import ButtonClick from "../../Forms/ButtonClick";
 import StateObjectUpdate from "../../Forms/StateObjectUpdate/StateObjectUpdate";
 import FormRouter from "../../Forms/FormRouter/FormRouter";
-import styles from "./CustomTab.module.scss";
+import { CustomTabStyles } from "./styles";
 
 const CustomTab = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -13,8 +13,8 @@ const CustomTab = () => {
   };
 
   return (
-    <div>
-      <div className={styles.customNavbar}>
+    <CustomTabStyles>
+      <div className="customNavbar">
         <button
           onClick={() => handleTabClick(0)}
           className={activeTab === 0 ? "active" : ""}
@@ -44,7 +44,7 @@ const CustomTab = () => {
       {activeTab === 1 && <ButtonClick />}
       {activeTab === 2 && <StateObjectUpdate />}
       {activeTab === 3 && <FormRouter />}
-    </div>
+    </CustomTabStyles>
   );
 };
 

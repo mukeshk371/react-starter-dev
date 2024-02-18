@@ -1,3 +1,6 @@
+import styled from "styled-components";
+
+export const CustomTabStyles = styled.div`
 .customNavbar {
     button {
         background: #fff;
@@ -18,3 +21,4 @@
         }
     }
 }
+`;

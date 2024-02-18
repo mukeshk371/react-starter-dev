@@ -36,7 +36,7 @@ export const BreadcrumbStyles = styled.div`
             display: inline-block;
             padding: 0 20px;
             color: #6c757d;
-        }
+                    }
 
         &:first-of-type {
             &::before {
