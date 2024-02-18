@@ -5,6 +5,7 @@ import StateObjectUpdate from "../../Forms/StateObjectUpdate/StateObjectUpdate";
 import FormRouter from "../../Forms/FormRouter/FormRouter";
 import logo from "../../../logo.svg";
 import { CustomNavBarStyles } from "./styles";
+import CustomAccordion from "../CustomAccordion/CustomAccordion";
 
 const CustomNavBar = () => {
   const [activeTab, setActiveTab] = useState("Home");
@@ -23,6 +24,8 @@ const CustomNavBar = () => {
         return <StateObjectUpdate />;
       case "FormRouter":
         return <FormRouter />;
+      case "CustomAccordion":
+        return <CustomAccordion />;
       default:
         return null;
     }
@@ -66,6 +69,14 @@ const CustomNavBar = () => {
           onClick={() => handleTabClick("FormRouter")}
         >
           Form Router
+        </div>
+        <div
+          className={`nav-item ${
+            activeTab === "CustomAccordion" ? "activeTab" : ""
+          }`}
+          onClick={() => handleTabClick("CustomAccordion")}
+        >
+          Custom Accordion
         </div>
       </div>
       <div className="content">{renderComponent()}</div>
