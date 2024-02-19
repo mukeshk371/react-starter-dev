@@ -4,9 +4,13 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import logo from "../../logo.svg";
 
 const NavBar = () => {
+  const navStyle = {
+    height: "62px"
+  };
+
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+      <Navbar bg="dark" variant="dark" expand="lg" fixed="top" style={navStyle}>
         <Container>
           <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
             <img src={logo} className="App-logo" alt="Logo" height="30" />

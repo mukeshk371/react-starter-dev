@@ -3,9 +3,15 @@ import styled from "styled-components";
 export const CustomNavBarStyles = styled.div`
   .navbarCustom {
     background-color: #cff4fc;
-    height: 56px;
+    height: 62px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
 
     a {
       display: flex;
