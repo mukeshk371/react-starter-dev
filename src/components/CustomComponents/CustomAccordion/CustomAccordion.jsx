@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppContainer,
   Title,
@@ -9,30 +9,18 @@ import {
 import { ChevronDown, ChevronUp } from "react-bootstrap-icons";
 import { scientists } from "../../../utils/mockData";
 
-const Accordion = ({ item }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
-
+const Accordion = ({ item, open, onToggle }) => {
   return (
     <AccordionContainer>
-      <AccordionHeader onClick={toggleAccordion}>
+      <AccordionHeader onClick={onToggle}>
         <strong>{item.name}</strong>
-        {isOpen ? <ChevronUp /> : <ChevronDown />}
+        {open ? <ChevronUp /> : <ChevronDown />}
       </AccordionHeader>
-      <AccordionContent style={{ maxHeight: isOpen ? "1000px" : "0" }}>
+      <AccordionContent style={{ maxHeight: open ? "1000px" : "0" }}>
         <div>
-          <img
-            src={item.image}
-            className="w-25"
-            alt={item.name}
-          />
+          <img src={item.image} className="w-25" alt={item.name} />
           <strong className="d-block">Field: {item.field}</strong>
-          <strong className="d-block">
-            Birthdate: {item.birthdate}
-          </strong>
+          <strong className="d-block">Birthdate: {item.birthdate}</strong>
           <p>Description: {item.description}</p>
         </div>
       </AccordionContent>
@@ -41,11 +29,22 @@ const Accordion = ({ item }) => {
 };
 
 const CustomAccordion = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleAccordion = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
     <AppContainer>
       <Title>Accordion Example</Title>
       {scientists.map((item, index) => (
-        <Accordion key={index} item={item} />
+        <Accordion
+          key={index}
+          item={item}
+          open={index === openIndex}
+          onToggle={() => toggleAccordion(index)}
+        />
       ))}
     </AppContainer>
   );
