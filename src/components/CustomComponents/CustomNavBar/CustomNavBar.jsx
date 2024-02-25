@@ -6,6 +6,7 @@ import FormRouter from "../../Forms/FormRouter/FormRouter";
 import logo from "../../../logo.svg";
 import { CustomNavBarStyles } from "./styles";
 import CustomAccordion from "../CustomAccordion/CustomAccordion";
+import CommonPage from "../../Common/CommonPage";
 
 const CustomNavBar = () => {
   const [activeTab, setActiveTab] = useState("Home");
@@ -26,6 +27,8 @@ const CustomNavBar = () => {
         return <FormRouter />;
       case "CustomAccordion":
         return <CustomAccordion />;
+        case "CommonPage":
+          return <CommonPage />;
       default:
         return null;
     }
@@ -38,6 +41,14 @@ const CustomNavBar = () => {
           <img src={logo} className="App-logo" alt="Logo" height="30" />
           <strong>Custom NavBar</strong>
         </a>
+        <div
+          className={`nav-item ${
+            activeTab === "CommonPage" ? "activeTab" : ""
+          }`}
+          onClick={() => handleTabClick("CommonPage")}
+        >
+          Common Page
+        </div>
         <div
           className={`nav-item ${
             activeTab === "CardContentSliderApp" ? "activeTab" : ""
