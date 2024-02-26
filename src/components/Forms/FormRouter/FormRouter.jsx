@@ -4,6 +4,7 @@ import StateObjectUpdate from "../StateObjectUpdate/StateObjectUpdate";
 import ButtonClick from "../ButtonClick";
 import Form from "../Form";
 import ArrayUpdateInState from "../../ArrayUpdateInState/ArrayUpdateInState";
+import MultiStepForm from "../MultiStepForm/MultiStepForm";
 
 const FormRouter = () => {
   return (
@@ -21,6 +22,9 @@ const FormRouter = () => {
         <Nav.Item>
           <Nav.Link eventKey="ArrayUpdateInState">Updating Arrays in State</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="MultiStepForm">Multi Step Form</Nav.Link>
+        </Nav.Item>
       </Nav>
       <Tab.Content>
         <Tab.Pane eventKey="StateObjectUpdate">
@@ -34,6 +38,9 @@ const FormRouter = () => {
         </Tab.Pane>
         <Tab.Pane eventKey="ArrayUpdateInState">
           <ArrayUpdateInState />
+        </Tab.Pane>
+        <Tab.Pane eventKey="MultiStepForm">
+          <MultiStepForm />
         </Tab.Pane>
       </Tab.Content>
     </Tab.Container>
