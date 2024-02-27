@@ -6,6 +6,7 @@ import {
   FormInput,
   FormButton,
   ThankYouMessage,
+  ErrorMessage,
 } from "./styles";
 
 const MultiStepForm = () => {
@@ -16,6 +17,7 @@ const MultiStepForm = () => {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,22 +25,43 @@ const MultiStepForm = () => {
       ...prevData,
       [name]: value,
     }));
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: "",
+    }));
+  };
+
+  const validateStep = () => {
+    const { firstName, lastName, email, password } = formData;
+    let stepErrors = {};
+
+    if (!firstName) {
+      stepErrors.firstName = "First name is required";
+    }
+    if (!lastName) {
+      stepErrors.lastName = "Last name is required";
+    }
+    if (!email) {
+      stepErrors.email = "Email is required";
+    }
+    if (!password) {
+      stepErrors.password = "Password is required";
+    }
+
+    setErrors(stepErrors);
+    return Object.keys(stepErrors).length === 0;
   };
 
   const handleNext = (e) => {
     e.preventDefault();
-    setStep((prevStep) => prevStep + 1);
+    if (validateStep()) {
+      setStep((prevStep) => prevStep + 1);
+    }
   };
 
   const handleBack = (e) => {
     e.preventDefault();
     setStep((prevStep) => prevStep - 1);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
-    setStep(4);
   };
 
   return (
@@ -53,6 +76,7 @@ const MultiStepForm = () => {
             value={formData.firstName}
             onChange={handleChange}
           />
+          {errors.firstName && <ErrorMessage>{errors.firstName}</ErrorMessage>}
           <FormInput
             type="text"
             name="lastName"
@@ -60,7 +84,10 @@ const MultiStepForm = () => {
             value={formData.lastName}
             onChange={handleChange}
           />
-          <FormButton type="submit">Next</FormButton>
+          {errors.lastName && <ErrorMessage>{errors.lastName}</ErrorMessage>}
+          <div className="d-flex align-items-center justify-content-between">
+            <FormButton type="submit">Next</FormButton>
+          </div>
         </form>
       </StepContainer>
 
@@ -74,7 +101,8 @@ const MultiStepForm = () => {
             value={formData.email}
             onChange={handleChange}
           />
-          <div className="d-flex justify-content-between">
+          {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+          <div className="d-flex align-items-center justify-content-between">
             <FormButton onClick={handleBack}>Back</FormButton>
             <FormButton type="submit">Next</FormButton>
           </div>
@@ -83,7 +111,7 @@ const MultiStepForm = () => {
 
       <StepContainer current={step === 3}>
         <StepHeader>Step 3: Create Password</StepHeader>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleNext}>
           <FormInput
             type="password"
             name="password"
@@ -91,7 +119,8 @@ const MultiStepForm = () => {
             value={formData.password}
             onChange={handleChange}
           />
-          <div className="d-flex justify-content-between">
+          {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+          <div className="d-flex align-items-center justify-content-between">
             <FormButton onClick={handleBack}>Back</FormButton>
             <FormButton type="submit">Submit</FormButton>
           </div>
