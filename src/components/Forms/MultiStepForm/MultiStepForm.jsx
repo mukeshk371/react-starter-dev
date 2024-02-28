@@ -7,9 +7,13 @@ import {
   FormButton,
   ThankYouMessage,
   ErrorMessage,
+  ProgressBarContainer,
+  ProgressBarFiller,
+  ProgressBarStep,
 } from "./styles";
 
 const MultiStepForm = () => {
+  const totalSteps = 3; // Total number of steps
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -48,24 +52,42 @@ const MultiStepForm = () => {
       stepErrors.password = "Password is required";
     }
 
-    setErrors(stepErrors);
-    return Object.keys(stepErrors).length === 0;
+    if (Object.keys(stepErrors).length > 0) {
+      setErrors(stepErrors);
+      return false;
+    }
+    return true;
   };
 
   const handleNext = (e) => {
     e.preventDefault();
     if (validateStep()) {
-      setStep((prevStep) => prevStep + 1);
+      if (step < totalSteps) {
+        setStep(step + 1);
+      } else {
+        console.log(formData);
+        setStep(totalSteps + 1); // Set step to show thank you message
+      }
     }
   };
 
   const handleBack = (e) => {
     e.preventDefault();
-    setStep((prevStep) => prevStep - 1);
+    setStep(step - 1);
   };
+
+  const progress = (step / totalSteps) * 100;
 
   return (
     <FormContainer>
+      <ProgressBarContainer>
+        {["Step 1", "Step 2", "Step 3", "Thank You"].map((stepName, index) => (
+          <ProgressBarStep key={index} active={index === step - 1}>
+            {stepName}
+          </ProgressBarStep>
+        ))}
+        <ProgressBarFiller progress={progress} />
+      </ProgressBarContainer>
       <StepContainer current={step === 1}>
         <StepHeader>Step 1: Personal Information</StepHeader>
         <form onSubmit={handleNext}>
@@ -85,9 +107,7 @@ const MultiStepForm = () => {
             onChange={handleChange}
           />
           {errors.lastName && <ErrorMessage>{errors.lastName}</ErrorMessage>}
-          <div className="d-flex align-items-center justify-content-between">
-            <FormButton type="submit">Next</FormButton>
-          </div>
+          <FormButton type="submit">Next</FormButton>
         </form>
       </StepContainer>
 
@@ -127,7 +147,7 @@ const MultiStepForm = () => {
         </form>
       </StepContainer>
 
-      <StepContainer current={step === 4}>
+      <StepContainer current={step === totalSteps + 1}>
         <ThankYouMessage>Thank you for signing up!</ThankYouMessage>
       </StepContainer>
     </FormContainer>
