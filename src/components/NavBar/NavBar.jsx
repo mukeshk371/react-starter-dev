@@ -10,7 +10,7 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg" fixed="top" style={navStyle}>
+      <Navbar bg="dark" variant="dark" expand="lg" fixed="top" style={navStyle} id="header">
         <Container>
           <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
             <img src={logo} className="App-logo" alt="Logo" height="30" />

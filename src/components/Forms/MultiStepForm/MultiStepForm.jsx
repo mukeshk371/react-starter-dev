@@ -13,7 +13,7 @@ import {
 } from "./styles";
 
 const MultiStepForm = () => {
-  const totalSteps = 3; // Total number of steps
+  const totalSteps = 3;
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -39,17 +39,17 @@ const MultiStepForm = () => {
     const { firstName, lastName, email, password } = formData;
     let stepErrors = {};
 
-    if (!firstName) {
-      stepErrors.firstName = "First name is required";
+    if (!firstName || firstName.length < 2 || !isNaN(firstName)) {
+      stepErrors.firstName = "First name is required and must be at least 2 characters and not a number";
     }
-    if (!lastName) {
-      stepErrors.lastName = "Last name is required";
+    if (!lastName || lastName.length < 2 || !isNaN(lastName)) {
+      stepErrors.lastName = "Last name is required and must be at least 2 characters and not a number";
     }
-    if (!email) {
-      stepErrors.email = "Email is required";
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      stepErrors.email = "Email is required and must be a valid email address";
     }
-    if (!password) {
-      stepErrors.password = "Password is required";
+    if (!password || password.length < 6) {
+      stepErrors.password = "Password is required and must be at least 6 characters";
     }
 
     if (Object.keys(stepErrors).length > 0) {
@@ -66,7 +66,7 @@ const MultiStepForm = () => {
         setStep(step + 1);
       } else {
         console.log(formData);
-        setStep(totalSteps + 1); // Set step to show thank you message
+        setStep(totalSteps + 1);
       }
     }
   };

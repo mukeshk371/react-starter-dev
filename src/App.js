@@ -8,8 +8,41 @@ import CustomTab from './components/CustomComponents/CustomTab/CustomTab';
 import Layout from './components/Layout/Layout';
 import NavBarEnabler from './components/NavBarEnabler/NavBarEnabler';
 import Breadcrumb from './components/CustomComponents/Breadcrumb/Breadcrumb';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [isSticky, setIsSticky] = useState(false);
+  const [originalTop, setOriginalTop] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const footerHeight = document.querySelector('footer').offsetHeight;
+      const headerHeight = document.getElementById('header').offsetHeight;
+
+      const div = document.querySelector('.sticky-div');
+      const divHeight = div.offsetHeight;
+
+      const divTop = div.getBoundingClientRect().top;
+
+      if (divTop <= headerHeight) {
+        setIsSticky(true);
+        setOriginalTop(divTop);
+      } else if (isSticky && divTop >= originalTop) {
+        setIsSticky(false);
+      }
+
+      if (divTop + divHeight >= window.innerHeight - footerHeight) {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isSticky, originalTop]);
+
   return (
     <Router>
       <Layout>
@@ -25,6 +58,10 @@ function App() {
             ]}
           />
           <div className="container mt-4">
+            <div className={isSticky ? 'sticky-div fixed' : 'sticky-div'}>
+              Sticky Div
+            </div>
+            
             <Routes>
               <Route path="/card-content-slider-app" element={<CardContentSliderApp />} />
               <Route path="/form" element={<FormRouter />} />
@@ -34,6 +71,8 @@ function App() {
               <Route path="/custom-tab" element={<CustomTab />} />
             </Routes>
           </div>
+
+          <footer>Footer</footer>
         </div>
       </Layout>
     </Router>
