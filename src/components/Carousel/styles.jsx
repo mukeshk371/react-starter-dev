@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 
 export const CarouselContainer = styled.div`
   position: relative;
-  max-width: 1200px; /* Set max-width to 1200px */
+  max-width: 1200px;
   margin: 0 auto;
   overflow: hidden;
 `;
@@ -24,7 +24,7 @@ export const CarouselSlide = styled.div`
 `;
 
 export const SlideImage = styled.img`
-  width: 1200px; /* Set image width to 1200px */
+  width: 1200px;
   height: auto;
   object-fit: cover;
   animation: ${slideAnimation} 0.5s ease;
