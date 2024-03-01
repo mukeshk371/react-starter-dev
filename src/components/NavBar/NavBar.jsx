@@ -34,6 +34,11 @@ const NavBar = () => {
                   Custom Tab
                 </Nav.Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/carousel">
+                  Carousel
+                </Nav.Link>
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Container>

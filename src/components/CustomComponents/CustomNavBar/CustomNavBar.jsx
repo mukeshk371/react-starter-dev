@@ -36,7 +36,7 @@ const CustomNavBar = () => {
 
   return (
     <CustomNavBarStyles>
-      <div className="navbarCustom">
+      <div className="navbarCustom" id="header">
         <a href="/" target="_self">
           <img src={logo} className="App-logo" alt="Logo" height="30" />
           <strong>Custom NavBar</strong>
