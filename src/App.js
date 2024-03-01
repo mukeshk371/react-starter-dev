@@ -9,6 +9,7 @@ import Layout from './components/Layout/Layout';
 import NavBarEnabler from './components/NavBarEnabler/NavBarEnabler';
 import Breadcrumb from './components/CustomComponents/Breadcrumb/Breadcrumb';
 import { useEffect, useState } from 'react';
+import Carousel from './components/Carousel/Carousel';
 
 function App() {
   const [isSticky, setIsSticky] = useState(false);
@@ -69,6 +70,7 @@ function App() {
               <Route path="/state-object-update" element={<StateObjectUpdate />} />
               <Route index element={<Navigate to="/card-content-slider-app" />} />
               <Route path="/custom-tab" element={<CustomTab />} />
+              <Route path="/carousel" element={<Carousel />} />
             </Routes>
           </div>
 
