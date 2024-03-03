@@ -28,7 +28,7 @@ const NavbarTabsActiveOnScroll = () => {
 
   const handleTabClick = (tab) => {
     setActive(tab);
-    tabContentRef.current.scrollTo(0, 0); // Scroll to top of tab content
+    tabContentRef.current.scrollTo(0, 0);
   };
 
   const handleDropdownClick = (item) => {
