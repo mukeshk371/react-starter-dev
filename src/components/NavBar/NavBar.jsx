@@ -51,6 +51,11 @@ const NavBar = () => {
                   Navbar Tabs Active Scroll
                 </Nav.Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/offcanvas">
+                  Offcanvas
+                </Nav.Link>
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Container>

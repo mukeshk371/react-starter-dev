@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const NavbarTabsActiveOnScrollStyles = styled.div`
   .my-navbar {
     background-color: #333;
-    overflow: hidden;
 
     .my-navbar-menu {
       list-style-type: none;
@@ -32,7 +31,6 @@ export const NavbarTabsActiveOnScrollStyles = styled.div`
     .my-dropbtn {
       background-color: inherit;
       color: white;
-      padding: 15px;
       border: none;
       cursor: pointer;
     }
@@ -43,6 +41,8 @@ export const NavbarTabsActiveOnScrollStyles = styled.div`
       background-color: #333;
       min-width: 160px;
       z-index: 1;
+      top: 100%;
+      left: 0;
 
       div {
         color: white;

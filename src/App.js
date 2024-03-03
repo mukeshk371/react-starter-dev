@@ -11,6 +11,7 @@ import Breadcrumb from './components/CustomComponents/Breadcrumb/Breadcrumb';
 import { useEffect, useState } from 'react';
 import Carousel from './components/Carousel/Carousel';
 import NavbarTabsActiveOnScroll from './components/NavbarTabsActiveOnScroll/NavbarTabsActiveOnScroll';
+import Offcanvas from './components/Offcanvas/Offcanvas';
 
 function App() {
   const [isSticky, setIsSticky] = useState(false);
@@ -73,6 +74,7 @@ function App() {
               <Route path="/custom-tab" element={<CustomTab />} />
               <Route path="/carousel" element={<Carousel />} />
               <Route path="/navbar-tabs-active-on-scroll" element={<NavbarTabsActiveOnScroll />} />
+              <Route path="/offcanvas" element={<Offcanvas />} />
             </Routes>
           </div>
 
