@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { OffcanvasStyles } from "./Styles";
+import { XLg } from "react-bootstrap-icons";
 
 const Offcanvas = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,15 +20,16 @@ const Offcanvas = () => {
           Open Offcanvas
         </button>
         <div className={isOpen ? "offcanvas open" : "offcanvas"}>
-          <div className="overlay" onClick={toggleOffcanvas}></div>
-          <div className="content">
-            <button onClick={toggleOffcanvas} className="closeButton">
-              Close
-            </button>
-            <h2>Offcanvas Content</h2>
-            <p>
-              This is the offcanvas content. You can customize it as needed.
-            </p>
+          <div className="overlay" onClick={toggleOffcanvas}>
+            <div className="content">
+              <button onClick={toggleOffcanvas} className="closeButton">
+                <XLg/>
+              </button>
+              <h2>Offcanvas Content</h2>
+              <p>
+                This is the offcanvas content. You can customize it as needed.
+              </p>
+            </div>
           </div>
         </div>
       </>
