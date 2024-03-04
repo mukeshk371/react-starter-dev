@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import Carousel from './components/Carousel/Carousel';
 import NavbarTabsActiveOnScroll from './components/NavbarTabsActiveOnScroll/NavbarTabsActiveOnScroll';
 import Offcanvas from './components/Offcanvas/Offcanvas';
+import ColorChanger from './components/ColorChanger/ColorChanger';
 
 function App() {
   const [isSticky, setIsSticky] = useState(false);
@@ -75,6 +76,7 @@ function App() {
               <Route path="/carousel" element={<Carousel />} />
               <Route path="/navbar-tabs-active-on-scroll" element={<NavbarTabsActiveOnScroll />} />
               <Route path="/offcanvas" element={<Offcanvas />} />
+              <Route path="/color-changer" element={<ColorChanger />} />
             </Routes>
           </div>
 

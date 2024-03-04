@@ -56,6 +56,11 @@ const NavBar = () => {
                   Offcanvas
                 </Nav.Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/color-changer">
+                  Color Changer
+                </Nav.Link>
+              </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Container>
