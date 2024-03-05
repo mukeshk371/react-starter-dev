@@ -13,6 +13,7 @@ import Carousel from './components/Carousel/Carousel';
 import NavbarTabsActiveOnScroll from './components/NavbarTabsActiveOnScroll/NavbarTabsActiveOnScroll';
 import Offcanvas from './components/Offcanvas/Offcanvas';
 import ColorChanger from './components/ColorChanger/ColorChanger';
+import CustomNavbarDropdown from './components/CustomComponents/CustomNavbarDropdown/CustomNavbarDropdown';
 
 function App() {
   const [isSticky, setIsSticky] = useState(false);
@@ -52,6 +53,7 @@ function App() {
       <Layout>
         <div className='body-wrapper'>
           <NavBarEnabler />
+          <CustomNavbarDropdown />
           <Breadcrumb
             initialPaths={[
               { name: "Home", link: "/" },
@@ -65,7 +67,7 @@ function App() {
             <div className={isSticky ? 'sticky-div fixed' : 'sticky-div'}>
               Sticky Div
             </div>
-            
+
             <Routes>
               <Route path="/card-content-slider-app" element={<CardContentSliderApp />} />
               <Route path="/form" element={<FormRouter />} />
