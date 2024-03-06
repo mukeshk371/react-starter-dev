@@ -6,6 +6,7 @@ export const NavbarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -65,6 +66,7 @@ export const DropdownMenu = styled.ul`
   padding: 10px;
   margin-top: 5px;
   list-style-type: none;
+  z-index: 1;
 
   ${(props) => props.open && `
     display: block;
