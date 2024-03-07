@@ -32,6 +32,11 @@ const NavBar = () => {
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
+                <Nav.Link as={Link} to="/advanced-multi-step-form">
+                  Advanced Form
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
                 <Nav.Link as={Link} to="/card-content-slider-app">
                   Card Content Slider App
                 </Nav.Link>
