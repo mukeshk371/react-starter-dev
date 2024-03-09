@@ -21,6 +21,7 @@ import ColorChanger from "./components/ColorChanger/ColorChanger";
 import CustomNavbarDropdown from "./components/CustomComponents/CustomNavbarDropdown/CustomNavbarDropdown";
 import Search from "./components/CustomComponents/Search/Search";
 import AdvancedMultiStepForm from "./components/Forms/AdvancedMultiStepForm/AdvancedMultiStepForm";
+import EcommercePage from "./components/EcommercePage/EcommercePage";
 
 function App() {
   const [isSticky, setIsSticky] = useState(false);
@@ -81,6 +82,7 @@ function App() {
                 path="/card-content-slider-app"
                 element={<CardContentSliderApp />}
               />
+              <Route path="/ecommerce-page" element={<EcommercePage />} />
               <Route path="/form" element={<FormRouter />} />
               <Route path="/advanced-multi-step-form" element={<AdvancedMultiStepForm />} />
               <Route path="/button-click" element={<ButtonClick />} />

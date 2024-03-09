@@ -21,11 +21,15 @@ const NavBar = () => {
         <Container>
           <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
             <img src={logo} className="App-logo" alt="Logo" height="30" />
-            <strong className="ms-2">React Starter Dev</strong>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarNav" />
           <Navbar.Collapse id="navbarNav">
             <Nav className="ml-auto">
+              <Nav.Item>
+                <Nav.Link as={Link} to="/ecommerce-page">
+                  Ecommerce Page
+                </Nav.Link>
+              </Nav.Item>
               <Nav.Item>
                 <Nav.Link as={Link} to="/form">
                   Form
