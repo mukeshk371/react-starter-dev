@@ -59,7 +59,8 @@ function App() {
   return (
     <Router>
       <Layout>
-        <div className="body-wrapper">
+        <EcommercePage />
+        <div className="body-wrapper d-none">
           <NavBarEnabler />
           <CustomNavbarDropdown />
           <Breadcrumb
@@ -84,7 +85,10 @@ function App() {
               />
               <Route path="/ecommerce-page" element={<EcommercePage />} />
               <Route path="/form" element={<FormRouter />} />
-              <Route path="/advanced-multi-step-form" element={<AdvancedMultiStepForm />} />
+              <Route
+                path="/advanced-multi-step-form"
+                element={<AdvancedMultiStepForm />}
+              />
               <Route path="/button-click" element={<ButtonClick />} />
               <Route
                 path="/state-object-update"
