@@ -1,16 +1,42 @@
-import React, { useState } from "react";
-import { Navbar, Container, Nav, Card, Button, Dropdown } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Card,
+  Button,
+  Dropdown,
+  Table,
+} from "react-bootstrap";
 
 const EcommercePage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
 
-  const addToCart = (item) => {
-    setCartItems([...cartItems, item]);
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await fetch(
+          "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.106926&lng=85.357232&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        );
+        const data = await response.json();
+        setRestaurants(
+          data.data.cards[2].card.card.gridElements.infoWithStyle.restaurants
+        );
+      } catch (error) {
+        console.error("Error fetching restaurants:", error);
+      }
+    };
+    fetchRestaurants();
+  }, []);
+
+  const addToCart = (index) => {
+    setCartItems([...cartItems, restaurants[index]]);
   };
 
-  const removeFromCart = (item) => {
-    const updatedCartItems = cartItems.filter((cartItem) => cartItem !== item);
+  const removeFromCart = (index) => {
+    const updatedCartItems = cartItems.filter((_, i) => i !== index);
     setCartItems(updatedCartItems);
   };
 
@@ -20,7 +46,11 @@ const EcommercePage = () => {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" className="position-sticky top-0 start-0 z-3">
+      <Navbar
+        bg="dark"
+        variant="dark"
+        className="position-sticky top-0 start-0 z-3"
+      >
         <Container>
           <Navbar.Brand href="#home">E-commerce</Navbar.Brand>
           <Nav className="ms-auto">
@@ -32,26 +62,42 @@ const EcommercePage = () => {
                     {cartItems.length}
                   </span>
                 </Dropdown.Toggle>
-                <Dropdown.Menu className="end-0" style={{ left: "initial" }}>
-                  {cartItems.map((item, index) => (
-                    <Dropdown.Item key={index}>
-                      {item} - ₹210
-                      <Button
-                        variant="danger"
-                        className="ms-2"
-                        onClick={() => removeFromCart(item)}
-                      >
-                        -
-                      </Button>
-                      <Button
-                        variant="success"
-                        className="ms-2"
-                        onClick={() => addToCart(item)}
-                      >
-                        +
-                      </Button>
-                    </Dropdown.Item>
-                  ))}
+                <Dropdown.Menu className="end-0 p-0 overflow-auto" style={{ left: "initial", width: "max-content", maxHeight: "450px" }}>
+                  <Table bordered hover style={{ verticalAlign: "middle" }} className="mb-0 rounded">
+                    <thead>
+                      <tr>
+                        <th>S. No.</th>
+                        <th>Restaurant</th>
+                        <th>Price</th>
+                        <th className="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cartItems.map((item, index) => (
+                        <tr key={index}>
+                          <td className="text-center">{index + 1}.</td>
+                          <td>{item.info.name}</td>
+                          <td>{item.info.costForTwo}</td>
+                          <td>
+                            <Button
+                              variant="danger"
+                              className="w-50"
+                              onClick={() => removeFromCart(index)}
+                            >
+                              -
+                            </Button>
+                            <Button
+                              variant="success"
+                              className="w-50"
+                              onClick={() => addToCart(index)}
+                            >
+                              +
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Link>
@@ -59,22 +105,27 @@ const EcommercePage = () => {
         </Container>
       </Navbar>
       <Container className="mt-4">
-        <h2>Products</h2>
+        <h2>Restaurants</h2>
         <div className="row">
-          {[...Array(6).keys()].map((index) => (
+          {restaurants.map((restaurant, index) => (
             <div key={index} className="col-lg-4 col-md-6 mb-4">
               <Card>
                 <Card.Img
+                  className="object-fit-cover"
+                  style={{ height: "200px" }}
                   variant="top"
-                  src={`https://via.placeholder.com/300x200?text=Product${index + 1}`}
+                  src={
+                    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
+                    restaurant.info.cloudinaryImageId
+                  }
                 />
                 <Card.Body>
-                  <Card.Title>Product {index + 1}</Card.Title>
-                  <Card.Text>Price: ₹210</Card.Text>
+                  <Card.Title className="text-truncate">
+                    {restaurant.info.name}
+                  </Card.Title>
+                  <Card.Text>{restaurant.info.costForTwo}</Card.Text>
                   {selectedItemIndex !== index && (
-                    <Button
-                      onClick={() => toggleSelection(index)}
-                    >
+                    <Button onClick={() => toggleSelection(index)}>
                       Add to Cart
                     </Button>
                   )}
@@ -83,14 +134,14 @@ const EcommercePage = () => {
                       <Button
                         variant="outline-danger"
                         className="col"
-                        onClick={() => removeFromCart(`Product ${index + 1}`)}
+                        onClick={() => removeFromCart(index)}
                       >
                         -
                       </Button>
                       <Button
                         variant="outline-success"
                         className="col"
-                        onClick={() => addToCart(`Product ${index + 1}`)}
+                        onClick={() => addToCart(index)}
                       >
                         +
                       </Button>
