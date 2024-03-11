@@ -62,8 +62,20 @@ const EcommercePage = () => {
                     {cartItems.length}
                   </span>
                 </Dropdown.Toggle>
-                <Dropdown.Menu className="end-0 p-0 overflow-auto" style={{ left: "initial", width: "max-content", maxHeight: "450px" }}>
-                  <Table bordered hover style={{ verticalAlign: "middle" }} className="mb-0 rounded">
+                <Dropdown.Menu
+                  className="end-0 p-0 overflow-auto"
+                  style={{
+                    left: "initial",
+                    width: "max-content",
+                    maxHeight: "450px",
+                  }}
+                >
+                  <Table
+                    bordered
+                    hover
+                    style={{ verticalAlign: "middle" }}
+                    className="mb-0 rounded"
+                  >
                     <thead>
                       <tr>
                         <th>S. No.</th>
