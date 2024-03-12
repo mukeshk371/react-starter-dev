@@ -7,18 +7,21 @@ import {
   Button,
   Dropdown,
   Table,
+  ButtonGroup,
 } from "react-bootstrap";
+import { DashLg, PlusLg } from "react-bootstrap-icons";
 
 const EcommercePage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
+  const [selectedCuisine, setSelectedCuisine] = useState(null);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
         const response = await fetch(
-          "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.106926&lng=85.357232&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+          "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.446009&lng=77.065463&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         );
         const data = await response.json();
         setRestaurants(
@@ -44,6 +47,12 @@ const EcommercePage = () => {
     setSelectedItemIndex(selectedItemIndex === index ? null : index);
   };
 
+  const filterByCuisine = (cuisine) => {
+    setSelectedCuisine(cuisine);
+  };
+
+  const allCuisines = [...new Set(restaurants.map((r) => r.info.cuisines))];
+
   return (
     <>
       <Navbar
@@ -57,7 +66,7 @@ const EcommercePage = () => {
             <Nav.Link href="#cart">
               <Dropdown>
                 <Dropdown.Toggle variant="primary" id="cart-dropdown">
-                  Cart{" "}
+                  <strong>Cart</strong>{" "}
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
                     {cartItems.length}
                   </span>
@@ -93,17 +102,17 @@ const EcommercePage = () => {
                           <td>
                             <Button
                               variant="danger"
-                              className="w-50"
+                              className="w-50 d-inline-flex align-items-center"
                               onClick={() => removeFromCart(index)}
                             >
-                              -
+                              <DashLg />
                             </Button>
                             <Button
                               variant="success"
-                              className="w-50"
+                              className="w-50 d-inline-flex align-items-center"
                               onClick={() => addToCart(index)}
                             >
-                              +
+                              <PlusLg />
                             </Button>
                           </td>
                         </tr>
@@ -117,52 +126,66 @@ const EcommercePage = () => {
         </Container>
       </Navbar>
       <Container className="mt-4">
+        <ButtonGroup aria-label="Basic example">
+          <Button onClick={() => setSelectedCuisine(null)}>All</Button>
+          {allCuisines.map((cuisine) => (
+            <Button variant="secondary" key={cuisine} onClick={() => filterByCuisine(cuisine)}>
+              {cuisine}
+            </Button>
+          ))}
+        </ButtonGroup>
         <h2>Restaurants</h2>
         <div className="row">
-          {restaurants.map((restaurant, index) => (
-            <div key={index} className="col-lg-4 col-md-6 mb-4">
-              <Card>
-                <Card.Img
-                  className="object-fit-cover"
-                  style={{ height: "200px" }}
-                  variant="top"
-                  src={
-                    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-                    restaurant.info.cloudinaryImageId
-                  }
-                />
-                <Card.Body>
-                  <Card.Title className="text-truncate">
-                    {restaurant.info.name}
-                  </Card.Title>
-                  <Card.Text>{restaurant.info.costForTwo}</Card.Text>
-                  {selectedItemIndex !== index && (
-                    <Button onClick={() => toggleSelection(index)}>
-                      Add to Cart
-                    </Button>
-                  )}
-                  {selectedItemIndex === index && (
-                    <div className="row gap-3 m-0">
-                      <Button
-                        variant="outline-danger"
-                        className="col"
-                        onClick={() => removeFromCart(index)}
-                      >
-                        -
+          {restaurants
+            .filter(
+              (restaurant) =>
+                !selectedCuisine || restaurant.info.cuisines.includes(selectedCuisine)
+            )
+            .map((restaurant, index) => (
+              <div key={index} className="col-lg-4 col-md-6 mb-4">
+                <Card>
+                  <Card.Img
+                    className="object-fit-cover"
+                    style={{ height: "200px" }}
+                    variant="top"
+                    src={
+                      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
+                      restaurant.info.cloudinaryImageId
+                    }
+                  />
+                  <Card.Body>
+                    <Card.Title className="text-truncate">
+                      {restaurant.info.name}
+                    </Card.Title>
+                    <Card.Text>{restaurant.info.costForTwo}</Card.Text>
+                    <p>{restaurant.info.cuisines}</p>
+                    {selectedItemIndex !== index && (
+                      <Button onClick={() => toggleSelection(index)}>
+                        Add to Cart
                       </Button>
-                      <Button
-                        variant="outline-success"
-                        className="col"
-                        onClick={() => addToCart(index)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  )}
-                </Card.Body>
-              </Card>
-            </div>
-          ))}
+                    )}
+                    {selectedItemIndex === index && (
+                      <div className="row gap-3 m-0">
+                        <Button
+                          variant="outline-danger"
+                          className="col"
+                          onClick={() => removeFromCart(index)}
+                        >
+                          -
+                        </Button>
+                        <Button
+                          variant="outline-success"
+                          className="col"
+                          onClick={() => addToCart(index)}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    )}
+                  </Card.Body>
+                </Card>
+              </div>
+            ))}
         </div>
       </Container>
     </>
