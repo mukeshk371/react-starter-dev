@@ -10,12 +10,15 @@ import {
   ButtonGroup,
 } from "react-bootstrap";
 import { DashLg, PlusLg } from "react-bootstrap-icons";
+import { filterData } from "../../utils/filterData";
+import logo from "../../logo.svg";
 
 const EcommercePage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
   const [selectedCuisine, setSelectedCuisine] = useState(null);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -34,6 +37,16 @@ const EcommercePage = () => {
     fetchRestaurants();
   }, []);
 
+  useEffect(() => {
+    setFilteredRestaurants(
+      restaurants.filter((restaurant) =>
+        selectedCuisine
+          ? restaurant.info.cuisines.includes(selectedCuisine)
+          : true
+      )
+    );
+  }, [restaurants, selectedCuisine]);
+
   const addToCart = (index) => {
     setCartItems([...cartItems, restaurants[index]]);
   };
@@ -51,7 +64,7 @@ const EcommercePage = () => {
     setSelectedCuisine(cuisine);
   };
 
-  const allCuisines = [...new Set(restaurants.map((r) => r.info.cuisines))];
+  const allCuisines = [...new Set(filterData.map((item) => item.action.text))]; // Use mock data array for cuisines
 
   return (
     <>
@@ -61,7 +74,10 @@ const EcommercePage = () => {
         className="position-sticky top-0 start-0 z-3"
       >
         <Container>
-          <Navbar.Brand href="#home">E-commerce</Navbar.Brand>
+          <Navbar.Brand href="#home" className="d-flex align-items-center">
+            <img src={logo} className="App-logo" alt="Logo" height="30" />
+            <strong className="fs-2">E-commerce</strong>
+          </Navbar.Brand>
           <Nav className="ms-auto">
             <Nav.Link href="#cart">
               <Dropdown>
@@ -126,66 +142,73 @@ const EcommercePage = () => {
         </Container>
       </Navbar>
       <Container className="mt-4">
-        <ButtonGroup aria-label="Basic example">
-          <Button onClick={() => setSelectedCuisine(null)}>All</Button>
+        <ButtonGroup
+          size="lg"
+          aria-label="Basic example"
+          className="overflow-auto mw-100 text-nowrap mb-2"
+        >
+          <Button variant="secondary" onClick={() => setSelectedCuisine()}>
+            All
+          </Button>
           {allCuisines.map((cuisine) => (
-            <Button variant="secondary" key={cuisine} onClick={() => filterByCuisine(cuisine)}>
+            <Button
+              variant="secondary"
+              key={cuisine}
+              onClick={() => filterByCuisine(cuisine)}
+            >
               {cuisine}
             </Button>
           ))}
         </ButtonGroup>
         <h2>Restaurants</h2>
         <div className="row">
-          {restaurants
-            .filter(
-              (restaurant) =>
-                !selectedCuisine || restaurant.info.cuisines.includes(selectedCuisine)
-            )
-            .map((restaurant, index) => (
-              <div key={index} className="col-lg-4 col-md-6 mb-4">
-                <Card>
-                  <Card.Img
-                    className="object-fit-cover"
-                    style={{ height: "200px" }}
-                    variant="top"
-                    src={
-                      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-                      restaurant.info.cloudinaryImageId
-                    }
-                  />
-                  <Card.Body>
-                    <Card.Title className="text-truncate">
-                      {restaurant.info.name}
-                    </Card.Title>
-                    <Card.Text>{restaurant.info.costForTwo}</Card.Text>
-                    <p>{restaurant.info.cuisines}</p>
-                    {selectedItemIndex !== index && (
-                      <Button onClick={() => toggleSelection(index)}>
-                        Add to Cart
+          {filteredRestaurants.map((restaurant, index) => (
+            <div key={index} className="col-lg-4 col-md-6 mb-4">
+              <Card>
+                <Card.Img
+                  className="object-fit-cover"
+                  style={{ height: "200px" }}
+                  variant="top"
+                  src={
+                    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
+                    restaurant.info.cloudinaryImageId
+                  }
+                />
+                <Card.Body>
+                  <Card.Title className="text-truncate">
+                    {restaurant.info.name}
+                  </Card.Title>
+                  <Card.Text>{restaurant.info.costForTwo}</Card.Text>
+                  <p className="text-truncate">
+                    {restaurant.info.cuisines.join(", ")}
+                  </p>
+                  {selectedItemIndex !== index && (
+                    <Button onClick={() => toggleSelection(index)}>
+                      Add to Cart
+                    </Button>
+                  )}
+                  {selectedItemIndex === index && (
+                    <div className="row gap-3 m-0">
+                      <Button
+                        variant="outline-danger"
+                        className="col"
+                        onClick={() => removeFromCart(index)}
+                      >
+                        -
                       </Button>
-                    )}
-                    {selectedItemIndex === index && (
-                      <div className="row gap-3 m-0">
-                        <Button
-                          variant="outline-danger"
-                          className="col"
-                          onClick={() => removeFromCart(index)}
-                        >
-                          -
-                        </Button>
-                        <Button
-                          variant="outline-success"
-                          className="col"
-                          onClick={() => addToCart(index)}
-                        >
-                          +
-                        </Button>
-                      </div>
-                    )}
-                  </Card.Body>
-                </Card>
-              </div>
-            ))}
+                      <Button
+                        variant="outline-success"
+                        className="col"
+                        onClick={() => addToCart(index)}
+                      >
+                        +
+                      </Button>
+                    </div>
+                  )}
+                </Card.Body>
+              </Card>
+            </div>
+          ))}
         </div>
       </Container>
     </>
