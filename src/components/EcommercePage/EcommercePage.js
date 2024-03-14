@@ -3,11 +3,13 @@ import {
   Navbar,
   Container,
   Nav,
-  Card,
+  Form,
+  FormControl,
   Button,
   Dropdown,
   Table,
   ButtonGroup,
+  Card,
 } from "react-bootstrap";
 import { DashLg, PlusLg } from "react-bootstrap-icons";
 import { filterData } from "../../utils/filterData";
@@ -19,6 +21,7 @@ const EcommercePage = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [selectedCuisine, setSelectedCuisine] = useState(null);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -38,14 +41,18 @@ const EcommercePage = () => {
   }, []);
 
   useEffect(() => {
-    setFilteredRestaurants(
-      restaurants.filter((restaurant) =>
-        selectedCuisine
-          ? restaurant.info.cuisines.includes(selectedCuisine)
-          : true
-      )
-    );
-  }, [restaurants, selectedCuisine]);
+    let filtered = restaurants;
+    if (selectedCuisine && !searchQuery) {
+      filtered = restaurants.filter((restaurant) =>
+        restaurant.info.cuisines.includes(selectedCuisine)
+      );
+    } else if (searchQuery) {
+      filtered = restaurants.filter((restaurant) =>
+        restaurant.info.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    setFilteredRestaurants(filtered);
+  }, [restaurants, selectedCuisine, searchQuery]);
 
   const addToCart = (index) => {
     setCartItems([...cartItems, restaurants[index]]);
@@ -79,6 +86,15 @@ const EcommercePage = () => {
             <strong className="fs-2">E-commerce</strong>
           </Navbar.Brand>
           <Nav className="ms-auto">
+            <Form className="d-flex align-items-center" inline>
+              <FormControl
+                type="search"
+                placeholder="Search"
+                className="mr-2"
+                aria-label="Search"
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </Form>
             <Nav.Link href="#cart">
               <Dropdown>
                 <Dropdown.Toggle variant="primary" id="cart-dropdown">
@@ -169,10 +185,7 @@ const EcommercePage = () => {
                   className="object-fit-cover"
                   style={{ height: "200px" }}
                   variant="top"
-                  src={
-                    "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-                    restaurant.info.cloudinaryImageId
-                  }
+                  src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
                 />
                 <Card.Body>
                   <Card.Title className="text-truncate">
