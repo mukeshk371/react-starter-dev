@@ -11,9 +11,10 @@ import {
   ButtonGroup,
   Card,
 } from "react-bootstrap";
-import { DashLg, PlusLg } from "react-bootstrap-icons";
+import { Cart, Cart3, DashLg, PlusLg } from "react-bootstrap-icons";
 import { filterData } from "../../utils/filterData";
 import logo from "../../logo.svg";
+import CartPage from "./CartPage/CartPage";
 
 const EcommercePage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -22,6 +23,7 @@ const EcommercePage = () => {
   const [selectedCuisine, setSelectedCuisine] = useState(null);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showCart, setShowCart] = useState(false);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -97,7 +99,12 @@ const EcommercePage = () => {
             </Form>
             <Nav.Link href="#cart">
               <Dropdown>
-                <Dropdown.Toggle variant="primary" id="cart-dropdown">
+                <Dropdown.Toggle
+                  variant="primary"
+                  id="cart-dropdown"
+                  className="d-flex align-items-center"
+                >
+                  <Cart className="me-2" />
                   <strong>Cart</strong>{" "}
                   <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
                     {cartItems.length}
@@ -151,6 +158,13 @@ const EcommercePage = () => {
                       ))}
                     </tbody>
                   </Table>
+                  <Button
+                    variant="primary"
+                    onClick={() => setShowCart(true)}
+                    className="m-2 d-flex align-items-center mx-auto"
+                  >
+                    <Cart3 className="me-2" /> Go To Cart
+                  </Button>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Link>
@@ -158,71 +172,81 @@ const EcommercePage = () => {
         </Container>
       </Navbar>
       <Container className="mt-4">
-        <ButtonGroup
-          size="lg"
-          aria-label="Basic example"
-          className="overflow-auto mw-100 text-nowrap mb-2"
-        >
-          <Button variant="secondary" onClick={() => setSelectedCuisine()}>
-            All
-          </Button>
-          {allCuisines.map((cuisine) => (
-            <Button
-              variant="secondary"
-              key={cuisine}
-              onClick={() => filterByCuisine(cuisine)}
+        {showCart ? (
+          <CartPage
+            cartItems={cartItems}
+            removeFromCart={removeFromCart}
+            addToCart={addToCart}
+          />
+        ) : (
+          <>
+            <ButtonGroup
+              size="lg"
+              aria-label="Basic example"
+              className="overflow-auto mw-100 text-nowrap mb-2"
             >
-              {cuisine}
-            </Button>
-          ))}
-        </ButtonGroup>
-        <h2>Restaurants</h2>
-        <div className="row">
-          {filteredRestaurants.map((restaurant, index) => (
-            <div key={index} className="col-lg-4 col-md-6 mb-4">
-              <Card>
-                <Card.Img
-                  className="object-fit-cover"
-                  style={{ height: "200px" }}
-                  variant="top"
-                  src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
-                />
-                <Card.Body>
-                  <Card.Title className="text-truncate">
-                    {restaurant.info.name}
-                  </Card.Title>
-                  <Card.Text>{restaurant.info.costForTwo}</Card.Text>
-                  <p className="text-truncate">
-                    {restaurant.info.cuisines.join(", ")}
-                  </p>
-                  {selectedItemIndex !== index && (
-                    <Button onClick={() => toggleSelection(index)}>
-                      Add to Cart
-                    </Button>
-                  )}
-                  {selectedItemIndex === index && (
-                    <div className="row gap-3 m-0">
-                      <Button
-                        variant="outline-danger"
-                        className="col"
-                        onClick={() => removeFromCart(index)}
-                      >
-                        -
-                      </Button>
-                      <Button
-                        variant="outline-success"
-                        className="col"
-                        onClick={() => addToCart(index)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  )}
-                </Card.Body>
-              </Card>
+              <Button variant="secondary" onClick={() => setSelectedCuisine()}>
+                All
+              </Button>
+              {allCuisines.map((cuisine) => (
+                <Button
+                  variant="secondary"
+                  key={cuisine}
+                  onClick={() => filterByCuisine(cuisine)}
+                >
+                  {cuisine}
+                </Button>
+              ))}
+            </ButtonGroup>
+            <h2>Restaurants</h2>
+            <div className="row">
+              {filteredRestaurants.map((restaurant, index) => (
+                <div key={index} className="col-lg-4 col-md-6 mb-4">
+                  <Card>
+                    <Card.Img
+                      className="object-fit-cover"
+                      style={{ height: "200px" }}
+                      variant="top"
+                      src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
+                    />
+                    <Card.Body>
+                      <Card.Title className="text-truncate">
+                        {restaurant.info.name}
+                      </Card.Title>
+                      <Card.Text>{restaurant.info.costForTwo}</Card.Text>
+                      <p className="text-truncate">
+                        {restaurant.info.cuisines.join(", ")}
+                      </p>
+                      {selectedItemIndex !== index && (
+                        <Button onClick={() => toggleSelection(index)}>
+                          Add to Cart
+                        </Button>
+                      )}
+                      {selectedItemIndex === index && (
+                        <div className="row gap-3 m-0">
+                          <Button
+                            variant="outline-danger"
+                            className="col"
+                            onClick={() => removeFromCart(index)}
+                          >
+                            -
+                          </Button>
+                          <Button
+                            variant="outline-success"
+                            className="col"
+                            onClick={() => addToCart(index)}
+                          >
+                            +
+                          </Button>
+                        </div>
+                      )}
+                    </Card.Body>
+                  </Card>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </Container>
     </>
   );
