@@ -22,6 +22,7 @@ import CustomNavbarDropdown from "./components/CustomComponents/CustomNavbarDrop
 import Search from "./components/CustomComponents/Search/Search";
 import AdvancedMultiStepForm from "./components/Forms/AdvancedMultiStepForm/AdvancedMultiStepForm";
 import EcommercePage from "./components/EcommercePage/EcommercePage";
+import CartPage from "./components/EcommercePage/CartPage/CartPage";
 
 function App() {
   const [isSticky, setIsSticky] = useState(false);
@@ -106,6 +107,7 @@ function App() {
               />
               <Route path="/offcanvas" element={<Offcanvas />} />
               <Route path="/color-changer" element={<ColorChanger />} />
+              <Route path="/cart-page" element={<CartPage />} />
             </Routes>
           </div>
 
