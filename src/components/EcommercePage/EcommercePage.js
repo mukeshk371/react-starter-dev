@@ -11,10 +11,11 @@ import {
   ButtonGroup,
   Card,
 } from "react-bootstrap";
-import { Cart, Cart3, DashLg, PlusLg } from "react-bootstrap-icons";
+import { Cart, Cart3, CartFill, DashLg, PlusLg } from "react-bootstrap-icons";
 import { filterData } from "../../utils/filterData";
 import logo from "../../logo.svg";
 import CartPage from "./CartPage/CartPage";
+import { Link } from "react-router-dom";
 
 const EcommercePage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -29,7 +30,7 @@ const EcommercePage = () => {
     const fetchRestaurants = async () => {
       try {
         const response = await fetch(
-          "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.446009&lng=77.065463&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.446009&lng=77.065463&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         );
         const data = await response.json();
         setRestaurants(
@@ -83,7 +84,7 @@ const EcommercePage = () => {
         className="position-sticky top-0 start-0 z-3"
       >
         <Container>
-          <Navbar.Brand href="#home" className="d-flex align-items-center">
+          <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
             <img src={logo} className="App-logo" alt="Logo" height="30" />
             <strong className="fs-2">E-commerce</strong>
           </Navbar.Brand>
@@ -111,20 +112,20 @@ const EcommercePage = () => {
                   </span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu
-                  className="end-0 p-0 overflow-auto"
+                  className="end-0 p-0 overflow-auto shadow-lg bg-body-tertiary rounded"
                   style={{
                     left: "initial",
                     width: "max-content",
-                    maxHeight: "450px",
+                    maxHeight: "350px",
                   }}
                 >
                   <Table
                     bordered
                     hover
                     style={{ verticalAlign: "middle" }}
-                    className="mb-0 rounded"
+                    className="mb-0"
                   >
-                    <thead>
+                    <thead className="position-sticky top-0 shadow table-info">
                       <tr>
                         <th>S. No.</th>
                         <th>Restaurant</th>
@@ -157,14 +158,20 @@ const EcommercePage = () => {
                         </tr>
                       ))}
                     </tbody>
+                    <tfoot className="position-sticky bottom-0 table-info">
+                      <tr>
+                        <td colSpan={4} align="center">
+                          <Button
+                            variant="primary"
+                            onClick={() => setShowCart(true)}
+                            className="d-flex align-items-center"
+                          >
+                            <Cart3 className="me-2" /> Go To Cart
+                          </Button>
+                        </td>
+                      </tr>
+                    </tfoot>
                   </Table>
-                  <Button
-                    variant="primary"
-                    onClick={() => setShowCart(true)}
-                    className="m-2 d-flex align-items-center mx-auto"
-                  >
-                    <Cart3 className="me-2" /> Go To Cart
-                  </Button>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Link>
@@ -218,25 +225,25 @@ const EcommercePage = () => {
                         {restaurant.info.cuisines.join(", ")}
                       </p>
                       {selectedItemIndex !== index && (
-                        <Button onClick={() => toggleSelection(index)}>
-                          Add to Cart
+                        <Button className="d-inline-flex align-items-center" onClick={() => toggleSelection(index)}>
+                          <CartFill className="me-2"/> Add to Cart
                         </Button>
                       )}
                       {selectedItemIndex === index && (
                         <div className="row gap-3 m-0">
                           <Button
                             variant="outline-danger"
-                            className="col"
+                            className="col d-inline-flex align-items-center justify-content-center"
                             onClick={() => removeFromCart(index)}
                           >
-                            -
+                            <DashLg/>
                           </Button>
                           <Button
                             variant="outline-success"
-                            className="col"
+                            className="col d-inline-flex align-items-center justify-content-center"
                             onClick={() => addToCart(index)}
                           >
-                            +
+                            <PlusLg/>
                           </Button>
                         </div>
                       )}
