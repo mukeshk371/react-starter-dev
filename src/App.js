@@ -97,7 +97,7 @@ function App() {
               />
               <Route
                 index
-                element={<Navigate to="/card-content-slider-app" />}
+                element={<Navigate to="/ecommerce-page" />}
               />
               <Route path="/custom-tab" element={<CustomTab />} />
               <Route path="/carousel" element={<Carousel />} />
@@ -107,6 +107,7 @@ function App() {
               />
               <Route path="/offcanvas" element={<Offcanvas />} />
               <Route path="/color-changer" element={<ColorChanger />} />
+              <Route path="/ecommerce-page" element={<EcommercePage />} />
               <Route path="/cart-page" element={<CartPage />} />
             </Routes>
           </div>

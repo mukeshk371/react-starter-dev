@@ -16,6 +16,7 @@ import { filterData } from "../../utils/filterData";
 import logo from "../../logo.svg";
 import CartPage from "./CartPage/CartPage";
 import { Link } from "react-router-dom";
+import LoginForm from "./LoginForm/LoginForm";
 
 const EcommercePage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -25,6 +26,8 @@ const EcommercePage = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [showCart, setShowCart] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -76,6 +79,14 @@ const EcommercePage = () => {
 
   const allCuisines = [...new Set(filterData.map((item) => item.action.text))]; // Use mock data array for cuisines
 
+  const handleLogin = (username) => {
+    setLoggedInUser(username);
+  };
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
+  };
+
   return (
     <>
       <Navbar
@@ -98,6 +109,15 @@ const EcommercePage = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </Form>
+            {loggedInUser ? (
+              <Nav.Link onClick={handleLogout}>
+                <strong>{loggedInUser}</strong> <Button variant="primary">Logout</Button> 
+              </Nav.Link>
+            ) : (
+              <Nav.Link onClick={() => setShowLogin(true)}>
+                <Button variant="primary">Login</Button>
+              </Nav.Link>
+            )}
             <Nav.Link href="#cart">
               <Dropdown>
                 <Dropdown.Toggle
@@ -225,8 +245,11 @@ const EcommercePage = () => {
                         {restaurant.info.cuisines.join(", ")}
                       </p>
                       {selectedItemIndex !== index && (
-                        <Button className="d-inline-flex align-items-center" onClick={() => toggleSelection(index)}>
-                          <CartFill className="me-2"/> Add to Cart
+                        <Button
+                          className="d-inline-flex align-items-center"
+                          onClick={() => toggleSelection(index)}
+                        >
+                          <CartFill className="me-2" /> Add to Cart
                         </Button>
                       )}
                       {selectedItemIndex === index && (
@@ -236,14 +259,14 @@ const EcommercePage = () => {
                             className="col d-inline-flex align-items-center justify-content-center"
                             onClick={() => removeFromCart(index)}
                           >
-                            <DashLg/>
+                            <DashLg />
                           </Button>
                           <Button
                             variant="outline-success"
                             className="col d-inline-flex align-items-center justify-content-center"
                             onClick={() => addToCart(index)}
                           >
-                            <PlusLg/>
+                            <PlusLg />
                           </Button>
                         </div>
                       )}
@@ -255,6 +278,11 @@ const EcommercePage = () => {
           </>
         )}
       </Container>
+      <LoginForm
+        show={showLogin}
+        handleClose={() => setShowLogin(false)}
+        handleLogin={handleLogin}
+      />
     </>
   );
 };
