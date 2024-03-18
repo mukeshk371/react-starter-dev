@@ -11,7 +11,7 @@ import {
   ButtonGroup,
   Card,
 } from "react-bootstrap";
-import { Cart, Cart3, CartFill, DashLg, PlusLg } from "react-bootstrap-icons";
+import { Cart, Cart3, CartFill, DashLg, PersonCircle, PlusLg } from "react-bootstrap-icons";
 import { filterData } from "../../utils/filterData";
 import logo from "../../logo.svg";
 import CartPage from "./CartPage/CartPage";
@@ -100,24 +100,32 @@ const EcommercePage = () => {
             <strong className="fs-2">E-commerce</strong>
           </Navbar.Brand>
           <Nav className="ms-auto">
-            <Form className="d-flex align-items-center" inline>
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="mr-2"
-                aria-label="Search"
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </Form>
-            {loggedInUser ? (
-              <Nav.Link onClick={handleLogout}>
-                <strong>{loggedInUser}</strong> <Button variant="primary">Logout</Button> 
-              </Nav.Link>
-            ) : (
-              <Nav.Link onClick={() => setShowLogin(true)}>
-                <Button variant="primary">Login</Button>
-              </Nav.Link>
-            )}
+            <Nav.Link href="#">
+              <Form className="d-flex align-items-center" inline>
+                <FormControl
+                  type="search"
+                  placeholder="Search"
+                  className="mr-2"
+                  aria-label="Search"
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </Form>
+            </Nav.Link>
+            <Nav.Link href="#">
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic" className="d-inline-flex align-items-center fw-bold">
+                  <PersonCircle className="me-2" /> {loggedInUser ? loggedInUser : "Profile"}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {loggedInUser ? (
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  ) : (
+                    <Dropdown.Item onClick={() => setShowLogin(true)}>Login</Dropdown.Item>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+            </Nav.Link>
             <Nav.Link href="#cart">
               <Dropdown>
                 <Dropdown.Toggle

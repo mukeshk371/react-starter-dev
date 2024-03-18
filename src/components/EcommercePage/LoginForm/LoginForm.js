@@ -1,4 +1,3 @@
-// LoginForm.js
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
@@ -50,7 +49,7 @@ const LoginForm = ({ show, handleClose, handleLogin }) => {
               {errors.username}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group controlId="formBasicPassword" className="mt-3">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -63,7 +62,7 @@ const LoginForm = ({ show, handleClose, handleLogin }) => {
               {errors.password}
             </Form.Control.Feedback>
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="mt-3">
             Submit
           </Button>
         </Form>
