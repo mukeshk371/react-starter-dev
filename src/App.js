@@ -60,7 +60,6 @@ function App() {
   return (
     <Router>
       <Layout>
-        <EcommercePage />
         <div className="body-wrapper d-none">
           <NavBarEnabler />
           <CustomNavbarDropdown />
@@ -84,7 +83,6 @@ function App() {
                 path="/card-content-slider-app"
                 element={<CardContentSliderApp />}
               />
-              <Route path="/ecommerce-page" element={<EcommercePage />} />
               <Route path="/form" element={<FormRouter />} />
               <Route
                 path="/advanced-multi-step-form"
@@ -96,19 +94,37 @@ function App() {
                 element={<StateObjectUpdate />}
               />
               <Route
-                index
-                element={<Navigate to="/ecommerce-page" />}
+                path="/custom-tab"
+                element={<CustomTab />}
               />
-              <Route path="/custom-tab" element={<CustomTab />} />
-              <Route path="/carousel" element={<Carousel />} />
+              <Route
+                path="/carousel"
+                element={<Carousel />}
+              />
               <Route
                 path="/navbar-tabs-active-on-scroll"
                 element={<NavbarTabsActiveOnScroll />}
               />
-              <Route path="/offcanvas" element={<Offcanvas />} />
-              <Route path="/color-changer" element={<ColorChanger />} />
-              <Route path="/ecommerce-page" element={<EcommercePage />} />
-              <Route path="/cart-page" element={<CartPage />} />
+              <Route
+                path="/offcanvas"
+                element={<Offcanvas />}
+              />
+              <Route
+                path="/color-changer"
+                element={<ColorChanger />}
+              />
+              <Route
+                path="/ecommerce-page"
+                element={<EcommercePage />}
+              />
+              <Route
+                path="/cart-page"
+                element={<CartPage />}
+              />
+              <Route
+                index
+                element={<Navigate to="/ecommerce-page" />}
+              />
             </Routes>
           </div>
 
