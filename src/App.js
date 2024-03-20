@@ -60,6 +60,7 @@ function App() {
   return (
     <Router>
       <Layout>
+        <EcommercePage/>
         <div className="body-wrapper d-none">
           <NavBarEnabler />
           <CustomNavbarDropdown />
