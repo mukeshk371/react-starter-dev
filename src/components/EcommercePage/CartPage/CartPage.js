@@ -1,13 +1,13 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
-import { DashLg, PlusLg } from "react-bootstrap-icons";
+import { ArrowLeft, DashLg, PlusLg } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
 const CartPage = ({ cartItems, removeFromCart, addToCart }) => {
   return (
     <div className="mt-4">
-      <Link to="/" className="btn btn-primary mb-3">
-        Back to E-commerce Page
+      <Link to="/" className="btn btn-primary mb-3 d-inline-flex align-items-center">
+        <ArrowLeft/>Back to E-commerce Page
       </Link>
       <h2>Cart Items</h2>
       <Table striped bordered hover>

@@ -66,7 +66,7 @@ const EcommercePage = () => {
     setSelectedCuisine(cuisine);
   };
 
-  const allCuisines = [...new Set(filterData.map((item) => item.action.text))]; // Use mock data array for cuisines
+  const allCuisines = [...new Set(filterData.map((item) => item.action.text))];
 
   const handleLogin = (username) => {
     setLoggedInUser(username);
