@@ -6,6 +6,7 @@ import { filterData } from "../../utils/filterData";
 import CartPage from "./CartPage/CartPage";
 import LoginForm from "./LoginForm/LoginForm";
 import NavBar from "./NavBar/NavBar";
+import EcommerceCarousel from "./EcommerceCarousel/EcommerceCarousel";
 
 const EcommercePage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -98,10 +99,11 @@ const EcommercePage = () => {
           />
         ) : (
           <>
+            <EcommerceCarousel />
             <ButtonGroup
               size="lg"
               aria-label="Basic example"
-              className="overflow-auto mw-100 text-nowrap mb-2"
+              className="overflow-auto mw-100 text-nowrap mb-2 mt-5"
             >
               <Button variant="secondary" onClick={() => setSelectedCuisine()}>
                 All
