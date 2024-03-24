@@ -18,6 +18,7 @@ import {
 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import logo from "../../../logo.svg";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const NavBar = ({
   loggedInUser,
@@ -30,6 +31,7 @@ const NavBar = ({
   removeFromCart,
   addToCart,
 }) => {
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
   return (
     <Navbar
       collapseOnSelect
@@ -72,9 +74,28 @@ const NavBar = ({
                   {loggedInUser ? (
                     <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                   ) : (
-                    <Dropdown.Item onClick={() => setShowLogin(true)}>
-                      Login
-                    </Dropdown.Item>
+                    <>
+                      <Dropdown.Item onClick={() => setShowLogin(true)}>
+                        Login
+                      </Dropdown.Item>
+                      {isAuthenticated ? (
+                        <Dropdown.Item
+                          onClick={() =>
+                            logout({
+                              logoutParams: {
+                                returnTo: window.location.origin,
+                              },
+                            })
+                          }
+                        >
+                          Log Out
+                        </Dropdown.Item>
+                      ) : (
+                        <Dropdown.Item onClick={() => loginWithRedirect()}>
+                          Sign In With Social Domain
+                        </Dropdown.Item>
+                      )}
+                    </>
                   )}
                 </Dropdown.Menu>
               </Dropdown>
