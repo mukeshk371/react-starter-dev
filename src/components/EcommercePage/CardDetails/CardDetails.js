@@ -3,13 +3,8 @@ import { useParams } from "react-router-dom";
 
 const CardDetails = () => {
   const { id } = useParams();
-  
-  return (
-    <div>
-      <h1>Card Details Page</h1>
-      <p>Card ID: {id}</p>
-    </div>
-  );
+
+  return <h1>Details for restaurant with ID: {id}</h1>;
 };
 
 export default CardDetails;
