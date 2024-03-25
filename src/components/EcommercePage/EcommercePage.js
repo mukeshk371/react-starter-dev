@@ -122,15 +122,23 @@ const EcommercePage = () => {
             <div className="row">
               {filteredRestaurants.map((restaurant, index) => (
                 <div key={index} className="col-lg-4 col-md-6 mb-4">
-                  <Link to={`/restaurant/${restaurant.info.id}`} className="text-decoration-none">
-                    <Card>
+                  <Card>
+                    <Link
+                      to={`/restaurant/${restaurant.info.id}`}
+                      className="text-decoration-none text-dark"
+                    >
                       <Card.Img
                         className="object-fit-cover"
                         style={{ height: "200px" }}
                         variant="top"
                         src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
                       />
-                      <Card.Body>
+                    </Link>
+                    <Card.Body>
+                      <Link
+                        to={`/restaurant/${restaurant.info.id}`}
+                        className="text-decoration-none text-dark"
+                      >
                         <Card.Title className="text-truncate">
                           {restaurant.info.name}
                         </Card.Title>
@@ -138,35 +146,35 @@ const EcommercePage = () => {
                         <p className="text-truncate">
                           {restaurant.info.cuisines.join(", ")}
                         </p>
-                        {selectedItemIndex !== index && (
+                      </Link>
+                      {selectedItemIndex !== index && (
+                        <Button
+                          className="d-inline-flex align-items-center"
+                          onClick={() => toggleSelection(index)}
+                        >
+                          <CartFill className="me-2" /> Add to Cart
+                        </Button>
+                      )}
+                      {selectedItemIndex === index && (
+                        <div className="row gap-3 m-0">
                           <Button
-                            className="d-inline-flex align-items-center"
-                            onClick={() => toggleSelection(index)}
+                            variant="outline-danger"
+                            className="col d-inline-flex align-items-center justify-content-center"
+                            onClick={() => removeFromCart(index)}
                           >
-                            <CartFill className="me-2" /> Add to Cart
+                            <DashLg />
                           </Button>
-                        )}
-                        {selectedItemIndex === index && (
-                          <div className="row gap-3 m-0">
-                            <Button
-                              variant="outline-danger"
-                              className="col d-inline-flex align-items-center justify-content-center"
-                              onClick={() => removeFromCart(index)}
-                            >
-                              <DashLg />
-                            </Button>
-                            <Button
-                              variant="outline-success"
-                              className="col d-inline-flex align-items-center justify-content-center"
-                              onClick={() => addToCart(index)}
-                            >
-                              <PlusLg />
-                            </Button>
-                          </div>
-                        )}
-                      </Card.Body>
-                    </Card>
-                  </Link>
+                          <Button
+                            variant="outline-success"
+                            className="col d-inline-flex align-items-center justify-content-center"
+                            onClick={() => addToCart(index)}
+                          >
+                            <PlusLg />
+                          </Button>
+                        </div>
+                      )}
+                    </Card.Body>
+                  </Card>
                 </div>
               ))}
             </div>
