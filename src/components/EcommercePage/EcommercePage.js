@@ -124,8 +124,11 @@ const EcommercePage = () => {
                 <div key={index} className="col-lg-4 col-md-6 mb-4">
                   <Card>
                     <Link
-                      to={`/restaurant/${restaurant.info.id}`}
-                      className="text-decoration-none text-dark"
+                      to={{
+                        pathname: `/restaurant/${restaurant.info.id}`,
+                        state: { restaurantData: restaurant }
+                      }}
+                      className="text-decoration-none"
                     >
                       <Card.Img
                         className="object-fit-cover"
@@ -136,17 +139,20 @@ const EcommercePage = () => {
                     </Link>
                     <Card.Body>
                       <Link
-                        to={`/restaurant/${restaurant.info.id}`}
+                        to={{
+                          pathname: `/restaurant/${restaurant.info.id}`,
+                          state: { restaurantData: restaurant }
+                        }}
                         className="text-decoration-none text-dark"
                       >
                         <Card.Title className="text-truncate">
                           {restaurant.info.name}
                         </Card.Title>
-                        <Card.Text>{restaurant.info.costForTwo}</Card.Text>
-                        <p className="text-truncate">
-                          {restaurant.info.cuisines.join(", ")}
-                        </p>
                       </Link>
+                      <Card.Text>{restaurant.info.costForTwo}</Card.Text>
+                      <p className="text-truncate">
+                        {restaurant.info.cuisines.join(", ")}
+                      </p>
                       {selectedItemIndex !== index && (
                         <Button
                           className="d-inline-flex align-items-center"
