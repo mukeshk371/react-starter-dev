@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 import { EcommerceCarouselStyles } from "./Styles";
+import { Link } from "react-router-dom";
 
 function EcommerceCarousel() {
   const [carouselDetails, setCarouselDetails] = useState([]);
@@ -22,6 +23,7 @@ function EcommerceCarousel() {
                 name: restaurant.info.name,
                 cuisines: restaurant.info.cuisines.join(", "),
                 address: restaurant.info.locality,
+                id: restaurant.info.id,
               };
             }
           );
@@ -42,9 +44,14 @@ function EcommerceCarousel() {
               height="400px"
             />
             <Carousel.Caption>
-              <h1>{restaurant.name}</h1>
-              <h3>{restaurant.address}</h3>
-              <h6 className="fst-italic">Cuisines: {restaurant.cuisines}</h6>
+              <Link
+                to={`/restaurant/${restaurant.id}`}
+                className="text-decoration-none text-light"
+              >
+                <h1>{restaurant.name}</h1>
+                <h3>{restaurant.address}</h3>
+                <h6 className="fst-italic">Cuisines: {restaurant.cuisines}</h6>
+              </Link>
             </Carousel.Caption>
           </Carousel.Item>
         ))}
