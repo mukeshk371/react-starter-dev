@@ -37,6 +37,7 @@ const CartPage = ({ cartItems, removeFromCart, addToCart }) => {
           ))}
         </tbody>
       </Table>
+      <Link to="/checkout" className="btn btn-success">Checkout</Link>
     </div>
   );
 };
