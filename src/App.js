@@ -18,6 +18,7 @@ import AdvancedMultiStepForm from "./components/Forms/AdvancedMultiStepForm/Adva
 import EcommercePage from "./components/EcommercePage/EcommercePage";
 import CartPage from "./components/EcommercePage/CartPage/CartPage";
 import CardDetails from "./components/EcommercePage/CardDetails/CardDetails";
+import CheckoutPage from "./components/EcommercePage/CheckoutPage/CheckoutPage";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/cart-page" element={<CartPage />} />
         <Route index element={<Navigate to="/ecommerce-page" />} />
         <Route path="/restaurant/:id" element={<CardDetails />} />
+        <Route path="/checkout" element={<CheckoutPage/>} />
       </Routes>
     </Router>
   );
