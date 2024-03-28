@@ -103,7 +103,7 @@ const EcommercePage = () => {
             <ButtonGroup
               size="lg"
               aria-label="Basic example"
-              className="overflow-auto mw-100 text-nowrap mb-2 mt-5"
+              className="overflow-auto mw-100 text-nowrap mb-2 mt-4 mt-lg-5"
             >
               <Button variant="secondary" onClick={() => setSelectedCuisine()}>
                 All
@@ -122,7 +122,7 @@ const EcommercePage = () => {
             <div className="row">
               {filteredRestaurants.map((restaurant, index) => (
                 <div key={index} className="col-lg-4 col-md-6 mb-4">
-                  <Card>
+                  <Card className="shadow border-0">
                     <Link
                       to={{
                         pathname: `/restaurant/${restaurant.info.id}`,
@@ -137,7 +137,7 @@ const EcommercePage = () => {
                         src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
                       />
                     </Link>
-                    <Card.Body>
+                    <Card.Body className="text-center text-lg-start">
                       <Link
                         to={{
                           pathname: `/restaurant/${restaurant.info.id}`,

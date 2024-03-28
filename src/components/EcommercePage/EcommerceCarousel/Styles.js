@@ -7,4 +7,16 @@ export const EcommerceCarouselStyles = styled.div`
     left: 0;
     bottom: 0;
   }
+
+  .carousel-inner {
+    border-radius: 10px;
+  }
+
+  img {
+    height: 250px;
+
+    @media(min-width: 991px) {
+      height: 400px;
+    }
+  }
 `;
