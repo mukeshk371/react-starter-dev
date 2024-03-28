@@ -34,23 +34,22 @@ function EcommerceCarousel() {
 
   return (
     <EcommerceCarouselStyles>
-      <Carousel>
+      <Carousel >
         {carouselDetails.map((restaurant, index) => (
           <Carousel.Item key={index} interval={5000}>
             <img
               className="d-block w-100 object-fit-cover"
               src={restaurant.imageUrl}
               alt={`${restaurant.name} Pic`}
-              height="400px"
             />
-            <Carousel.Caption>
+            <Carousel.Caption className="p-2">
               <Link
                 to={`/restaurant/${restaurant.id}`}
                 className="text-decoration-none text-light"
               >
-                <h1>{restaurant.name}</h1>
-                <h3>{restaurant.address}</h3>
-                <h6 className="fst-italic">Cuisines: {restaurant.cuisines}</h6>
+                <h1 className="fs-3 fs-lg-2">{restaurant.name}</h1>
+                <h3 className="fs-5">{restaurant.address}</h3>
+                <h6 className="fst-italic text-truncate">Cuisines: {restaurant.cuisines}</h6>
               </Link>
             </Carousel.Caption>
           </Carousel.Item>
