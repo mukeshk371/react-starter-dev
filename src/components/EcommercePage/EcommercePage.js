@@ -8,6 +8,7 @@ import LoginForm from "./LoginForm/LoginForm";
 import NavBar from "./NavBar/NavBar";
 import EcommerceCarousel from "./EcommerceCarousel/EcommerceCarousel";
 import { EcommercePageStyles } from "./Styles";
+import Footer from "./Footer/Footer";
 
 const EcommercePage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -193,6 +194,7 @@ const EcommercePage = () => {
         handleClose={() => setShowLogin(false)}
         handleLogin={handleLogin}
       />
+      <Footer/>
     </EcommercePageStyles>
   );
 };
