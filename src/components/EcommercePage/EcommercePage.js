@@ -7,6 +7,8 @@ import CartPage from "./CartPage/CartPage";
 import LoginForm from "./LoginForm/LoginForm";
 import NavBar from "./NavBar/NavBar";
 import EcommerceCarousel from "./EcommerceCarousel/EcommerceCarousel";
+import { EcommercePageStyles } from "./Styles";
+import Footer from "./Footer/Footer";
 
 const EcommercePage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -78,7 +80,7 @@ const EcommercePage = () => {
   };
 
   return (
-    <>
+    <EcommercePageStyles>
       <NavBar
         loggedInUser={loggedInUser}
         cartItems={cartItems}
@@ -90,7 +92,7 @@ const EcommercePage = () => {
         removeFromCart={removeFromCart}
         addToCart={addToCart}
       />
-      <Container className="mt-4">
+      <Container className="mt-0 main-bx">
         {showCart ? (
           <CartPage
             cartItems={cartItems}
@@ -192,7 +194,8 @@ const EcommercePage = () => {
         handleClose={() => setShowLogin(false)}
         handleLogin={handleLogin}
       />
-    </>
+      <Footer/>
+    </EcommercePageStyles>
   );
 };
 

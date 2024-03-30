@@ -19,6 +19,8 @@ import EcommercePage from "./components/EcommercePage/EcommercePage";
 import CartPage from "./components/EcommercePage/CartPage/CartPage";
 import CardDetails from "./components/EcommercePage/CardDetails/CardDetails";
 import CheckoutPage from "./components/EcommercePage/CheckoutPage/CheckoutPage";
+import AboutUs from "./components/EcommercePage/AboutUs/AboutUs";
+import ContactUs from "./components/EcommercePage/ContactUs/ContactUs";
 
 function App() {
   return (
@@ -48,6 +50,8 @@ function App() {
         <Route index element={<Navigate to="/ecommerce-page" />} />
         <Route path="/restaurant/:id" element={<CardDetails />} />
         <Route path="/checkout" element={<CheckoutPage/>} />
+        <Route path="/about-us" element={<AboutUs/>} />
+        <Route path="/contact-us" element={<ContactUs/>} />
       </Routes>
     </Router>
   );
