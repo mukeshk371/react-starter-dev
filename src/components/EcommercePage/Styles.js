@@ -3,7 +3,9 @@ import styled from "styled-components";
 export const EcommercePageStyles = styled.div`
   .card:hover {
     @media (min-width: 991px) {
-      transform: scale(1.1);
+      transform: scale(0.95, 0.95);
+      transform-origin: center center;
+      transition: all 0.1s ease-in 0s;
     }
   }
 
