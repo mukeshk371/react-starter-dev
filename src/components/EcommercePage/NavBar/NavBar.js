@@ -50,8 +50,8 @@ const NavBar = ({
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="ms-auto">
-              <Nav.Link href="#">
+            <Nav className="w-100">
+              <Nav.Link href="#" className="w-100">
                 <Form className="d-flex align-items-center" inline>
                   <FormControl
                     type="search"
@@ -64,7 +64,7 @@ const NavBar = ({
                 </Form>
               </Nav.Link>
               <Nav.Link href="#">
-                <Dropdown>
+                <Dropdown className="d-flex justify-content-center">
                   <Dropdown.Toggle
                     variant="success"
                     id="dropdown-basic"
@@ -107,7 +107,7 @@ const NavBar = ({
                 </Dropdown>
               </Nav.Link>
               <Nav.Link href="#cart">
-                <Dropdown>
+                <Dropdown className="d-flex justify-content-center">
                   <Dropdown.Toggle
                     variant="primary"
                     id="cart-dropdown"

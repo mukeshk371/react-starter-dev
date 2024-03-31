@@ -20,6 +20,7 @@ const EcommercePage = () => {
   const [showCart, setShowCart] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [cityName, setCityName] = useState("");
 
   useEffect(() => {
     const fetchRestaurants = async () => {
@@ -31,6 +32,8 @@ const EcommercePage = () => {
         setRestaurants(
           data.data.cards[2].card.card.gridElements.infoWithStyle.restaurants
         );
+        setCityName(data.data.cards[0].card.card.title);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching restaurants:", error);
       }
@@ -120,7 +123,7 @@ const EcommercePage = () => {
                 </Button>
               ))}
             </ButtonGroup>
-            <h2>Restaurants</h2>
+            <h2>{cityName}</h2>
             <div className="row">
               {filteredRestaurants.map((restaurant, index) => (
                 <div key={index} className="col-lg-4 col-md-6 mb-4">
@@ -128,7 +131,7 @@ const EcommercePage = () => {
                     <Link
                       to={{
                         pathname: `/restaurant/${restaurant.info.id}`,
-                        state: { restaurantData: restaurant }
+                        state: { restaurantData: restaurant },
                       }}
                       className="text-decoration-none"
                     >
@@ -143,7 +146,7 @@ const EcommercePage = () => {
                       <Link
                         to={{
                           pathname: `/restaurant/${restaurant.info.id}`,
-                          state: { restaurantData: restaurant }
+                          state: { restaurantData: restaurant },
                         }}
                         className="text-decoration-none text-dark"
                       >
@@ -194,7 +197,7 @@ const EcommercePage = () => {
         handleClose={() => setShowLogin(false)}
         handleLogin={handleLogin}
       />
-      <Footer/>
+      <Footer />
     </EcommercePageStyles>
   );
 };
