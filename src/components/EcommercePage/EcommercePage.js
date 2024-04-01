@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, ButtonGroup, Button, Card } from "react-bootstrap";
+import { ButtonGroup, Button } from "react-bootstrap";
 import { CartFill, DashLg, PlusLg } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { filterData } from "../../utils/filterData";
@@ -95,7 +95,7 @@ const EcommercePage = () => {
         removeFromCart={removeFromCart}
         addToCart={addToCart}
       />
-      <Container className="mt-0 main-bx">
+      <div className="mt-0 mx-auto max-w-[1140px]">
         {showCart ? (
           <CartPage
             cartItems={cartItems}
@@ -124,74 +124,71 @@ const EcommercePage = () => {
               ))}
             </ButtonGroup>
             <h2>{cityName}</h2>
-            <div className="row">
+            <div className="grid md:grid-cols-3 gap-4">
               {filteredRestaurants.map((restaurant, index) => (
-                <div key={index} className="col-lg-4 col-md-6 mb-4">
-                  <Card className="shadow border-0">
+                <div key={index} className="shadow border-0 rounded-[8px] overflow-hidden">
+                  <Link
+                    to={{
+                      pathname: `/restaurant/${restaurant.info.id}`,
+                      state: { restaurantData: restaurant },
+                    }}
+                    className="text-decoration-none"
+                  >
+                    <img
+                      className="h-[200px] w-full object-cover"
+                      alt={restaurant.info.cloudinaryImageId}
+                      src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
+                    />
+                  </Link>
+                  <div className=" p-[15px]">
                     <Link
                       to={{
                         pathname: `/restaurant/${restaurant.info.id}`,
                         state: { restaurantData: restaurant },
                       }}
-                      className="text-decoration-none"
+                      className="text-decoration-none text-dark"
                     >
-                      <Card.Img
-                        className="object-fit-cover"
-                        style={{ height: "200px" }}
-                        variant="top"
-                        src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
-                      />
+                      <h4 className="text-ellipsis overflow-hidden whitespace-nowrap">
+                        {restaurant.info.name}
+                      </h4>
                     </Link>
-                    <Card.Body className="text-center text-lg-start">
-                      <Link
-                        to={{
-                          pathname: `/restaurant/${restaurant.info.id}`,
-                          state: { restaurantData: restaurant },
-                        }}
-                        className="text-decoration-none text-dark"
+                    <p>{restaurant.info.costForTwo}</p>
+                    <p className="text-ellipsis overflow-hidden whitespace-nowrap">
+                      {restaurant.info.cuisines.join(", ")}
+                    </p>
+                    {selectedItemIndex !== index && (
+                      <button
+                        className="d-inline-flex align-items-center bg-[#0d6efd] text-white rounded-md py-[5px] px-[10px]"
+                        onClick={() => toggleSelection(index)}
                       >
-                        <Card.Title className="text-truncate">
-                          {restaurant.info.name}
-                        </Card.Title>
-                      </Link>
-                      <Card.Text>{restaurant.info.costForTwo}</Card.Text>
-                      <p className="text-truncate">
-                        {restaurant.info.cuisines.join(", ")}
-                      </p>
-                      {selectedItemIndex !== index && (
+                        <CartFill className="me-2" /> Add to Cart
+                      </button>
+                    )}
+                    {selectedItemIndex === index && (
+                      <div className="row gap-3 m-0">
                         <Button
-                          className="d-inline-flex align-items-center"
-                          onClick={() => toggleSelection(index)}
+                          variant="outline-danger"
+                          className="col d-inline-flex align-items-center justify-content-center"
+                          onClick={() => removeFromCart(index)}
                         >
-                          <CartFill className="me-2" /> Add to Cart
+                          <DashLg />
                         </Button>
-                      )}
-                      {selectedItemIndex === index && (
-                        <div className="row gap-3 m-0">
-                          <Button
-                            variant="outline-danger"
-                            className="col d-inline-flex align-items-center justify-content-center"
-                            onClick={() => removeFromCart(index)}
-                          >
-                            <DashLg />
-                          </Button>
-                          <Button
-                            variant="outline-success"
-                            className="col d-inline-flex align-items-center justify-content-center"
-                            onClick={() => addToCart(index)}
-                          >
-                            <PlusLg />
-                          </Button>
-                        </div>
-                      )}
-                    </Card.Body>
-                  </Card>
+                        <Button
+                          variant="outline-success"
+                          className="col d-inline-flex align-items-center justify-content-center"
+                          onClick={() => addToCart(index)}
+                        >
+                          <PlusLg />
+                        </Button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
           </>
         )}
-      </Container>
+      </div>
       <LoginForm
         show={showLogin}
         handleClose={() => setShowLogin(false)}
