@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Carousel } from "react-bootstrap";
-import { EcommerceCarouselStyles } from "./Styles";
 import { Link } from "react-router-dom";
+import { EcommerceCarouselStyles } from "./Styles";
+import { ChevronLeft, ChevronRight } from "react-bootstrap-icons";
 
 function EcommerceCarousel() {
+  const [carouselIndex, setCarouselIndex] = useState(0);
   const [carouselDetails, setCarouselDetails] = useState([]);
+  const [intervalId, setIntervalId] = useState(null);
 
   const imgCdn =
     "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
@@ -30,31 +32,87 @@ function EcommerceCarousel() {
         setCarouselDetails(restaurantDetails);
       })
       .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+
+    const id = setInterval(() => {
+      setCarouselIndex((prevIndex) =>
+        prevIndex === carouselDetails.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000);
+
+    setIntervalId(id);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [carouselDetails]);
+
+  const handleDotClick = (index) => {
+    setCarouselIndex(index);
+    clearInterval(intervalId);
+  };
+
+  const handleNext = () => {
+    setCarouselIndex((prevIndex) =>
+      prevIndex === carouselDetails.length - 1 ? 0 : prevIndex + 1
+    );
+    clearInterval(intervalId);
+  };
+
+  const handlePrev = () => {
+    setCarouselIndex((prevIndex) =>
+      prevIndex === 0 ? carouselDetails.length - 1 : prevIndex - 1
+    );
+    clearInterval(intervalId);
+  };
 
   return (
     <EcommerceCarouselStyles>
-      <Carousel >
-        {carouselDetails.map((restaurant, index) => (
-          <Carousel.Item key={index} interval={5000}>
-            <img
-              className="d-block w-100 object-fit-cover"
-              src={restaurant.imageUrl}
-              alt={`${restaurant.name} Pic`}
-            />
-            <Carousel.Caption className="p-2">
-              <Link
-                to={`/restaurant/${restaurant.id}`}
-                className="text-decoration-none text-light"
-              >
-                <h1 className="fs-3 fs-lg-2">{restaurant.name}</h1>
-                <h3 className="fs-5">{restaurant.address}</h3>
-                <h6 className="fst-italic text-truncate">Cuisines: {restaurant.cuisines}</h6>
-              </Link>
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
-      </Carousel>
+      <div className="carousel relative rounded-[10px] overflow-hidden">
+        {carouselDetails.length > 0 && (
+          <img
+            className="object-cover w-full animate-fade-in-out"
+            src={carouselDetails[carouselIndex].imageUrl}
+            alt={`${carouselDetails[carouselIndex].name} Pic`}
+          />
+        )}
+        <div className="carousel-dots absolute bottom-0 left-1/2 transform -translate-x-1/2">
+          {carouselDetails.map((_, index) => (
+            <span
+              key={index}
+              className={`dot ${index === carouselIndex ? "active" : ""}`}
+              onClick={() => handleDotClick(index)}
+            ></span>
+          ))}
+        </div>
+        <div className="carousel-caption p-2 bg-black bg-opacity-50 text-white">
+          <Link
+            to={`/restaurant/${carouselDetails[carouselIndex]?.id}`}
+            className="text-decoration-none text-white"
+          >
+            <h1 className="text-3xl md:text-2xl">
+              {carouselDetails[carouselIndex]?.name}
+            </h1>
+            <h3 className="text-xl">
+              {carouselDetails[carouselIndex]?.address}
+            </h3>
+            <h6 className="italic truncate">
+              Cuisines: {carouselDetails[carouselIndex]?.cuisines}
+            </h6>
+          </Link>
+        </div>
+        <button
+          className="prev-btn absolute top-1/2 left-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white text-[30px] px-[15px] py-[10px] rounded-r-[5px]"
+          onClick={handlePrev}
+        >
+          <ChevronLeft />
+        </button>
+        <button
+          className="next-btn absolute top-1/2 right-0 transform -translate-y-1/2 bg-black bg-opacity-50 text-white text-[30px] px-[15px] py-[10px] rounded-l-[5px]"
+          onClick={handleNext}
+        >
+          <ChevronRight />
+        </button>
+      </div>
     </EcommerceCarouselStyles>
   );
 }
