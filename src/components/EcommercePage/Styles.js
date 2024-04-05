@@ -19,16 +19,4 @@ export const EcommercePageStyles = styled.div`
       top: 74px;
     }
   }
-
-  .main-bx {
-    padding-top: 63px;
-
-    @media (min-width: 991px) {
-      padding-top: 74px;
-    }
-
-    .carousel.slide {
-      margin-top: 20px;
-    }
-  }
 `;

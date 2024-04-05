@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { ButtonGroup, Button } from "react-bootstrap";
 import { CartFill, DashLg, PlusLg } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { filterData } from "../../utils/filterData";
@@ -95,7 +94,7 @@ const EcommercePage = () => {
         removeFromCart={removeFromCart}
         addToCart={addToCart}
       />
-      <div className="mt-0 mx-auto max-w-[1140px]">
+      <div className="mx-auto max-w-[1140px] pt-[24px]">
         {showCart ? (
           <CartPage
             cartItems={cartItems}
@@ -105,28 +104,27 @@ const EcommercePage = () => {
         ) : (
           <>
             <EcommerceCarousel />
-            <ButtonGroup
-              size="lg"
-              aria-label="Basic example"
-              className="overflow-auto mw-100 text-nowrap mb-2 mt-4 mt-lg-5"
-            >
-              <Button variant="secondary" onClick={() => setSelectedCuisine()}>
+            <div className="overflow-auto mw-100 text-nowrap mb-2 mt-4 mt-lg-5 bg-slate-500 text-white text-[18px] font-medium">
+              <button className="p-[10px]" onClick={() => setSelectedCuisine()}>
                 All
-              </Button>
+              </button>
               {allCuisines.map((cuisine) => (
-                <Button
-                  variant="secondary"
+                <button
+                  className="px-[10px] py-[5px]"
                   key={cuisine}
                   onClick={() => filterByCuisine(cuisine)}
                 >
                   {cuisine}
-                </Button>
+                </button>
               ))}
-            </ButtonGroup>
+            </div>
             <h2>{cityName}</h2>
             <div className="grid md:grid-cols-3 gap-4">
               {filteredRestaurants.map((restaurant, index) => (
-                <div key={index} className="shadow border-0 rounded-[8px] overflow-hidden">
+                <div
+                  key={index}
+                  className="shadow border-0 rounded-[8px] overflow-hidden"
+                >
                   <Link
                     to={{
                       pathname: `/restaurant/${restaurant.info.id}`,
@@ -158,28 +156,26 @@ const EcommercePage = () => {
                     </p>
                     {selectedItemIndex !== index && (
                       <button
-                        className="d-inline-flex align-items-center bg-[#0d6efd] text-white rounded-md py-[5px] px-[10px]"
+                        className="d-inline-flex align-items-center bg-[#0d6efd] text-white rounded-md px-[10px] py-[8px] font-semibold"
                         onClick={() => toggleSelection(index)}
                       >
                         <CartFill className="me-2" /> Add to Cart
                       </button>
                     )}
                     {selectedItemIndex === index && (
-                      <div className="row gap-3 m-0">
-                        <Button
-                          variant="outline-danger"
-                          className="col d-inline-flex align-items-center justify-content-center"
+                      <div className="m-0 grid grid-cols-2 gap-[15px]">
+                        <button
+                          className="d-inline-flex align-items-center justify-content-center border-2 border-rose-600 rounded text-red-600 p-[10px] font-semibold hover:bg-red-600 hover:text-white"
                           onClick={() => removeFromCart(index)}
                         >
                           <DashLg />
-                        </Button>
-                        <Button
-                          variant="outline-success"
-                          className="col d-inline-flex align-items-center justify-content-center"
+                        </button>
+                        <button
+                          className="d-inline-flex align-items-center justify-content-center border-2 border-green-600 rounded font-semibold p-[10px] text-green-600 hover:bg-green-600 hover:text-white"
                           onClick={() => addToCart(index)}
                         >
                           <PlusLg />
-                        </Button>
+                        </button>
                       </div>
                     )}
                   </div>
