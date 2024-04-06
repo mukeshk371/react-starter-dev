@@ -6,7 +6,6 @@ import CartPage from "./CartPage/CartPage";
 import LoginForm from "./LoginForm/LoginForm";
 import NavBar from "./NavBar/NavBar";
 import EcommerceCarousel from "./EcommerceCarousel/EcommerceCarousel";
-import { EcommercePageStyles } from "./Styles";
 import Footer from "./Footer/Footer";
 
 const EcommercePage = () => {
@@ -82,7 +81,7 @@ const EcommercePage = () => {
   };
 
   return (
-    <EcommercePageStyles>
+    <>
       <NavBar
         loggedInUser={loggedInUser}
         cartItems={cartItems}
@@ -104,7 +103,7 @@ const EcommercePage = () => {
         ) : (
           <>
             <EcommerceCarousel />
-            <div className="overflow-auto mw-100 text-nowrap mb-2 mt-4 mt-lg-5 bg-slate-500 text-white text-[18px] font-medium">
+            <div className="overflow-auto mw-100 text-nowrap mt-[24px] bg-slate-500 text-white text-[18px] font-medium">
               <button className="p-[10px]" onClick={() => setSelectedCuisine()}>
                 All
               </button>
@@ -118,12 +117,12 @@ const EcommercePage = () => {
                 </button>
               ))}
             </div>
-            <h2>{cityName}</h2>
-            <div className="grid md:grid-cols-3 gap-4">
+            <h2 className="m-[24px] mb-0 md:mx-0">{cityName}</h2>
+            <div className="grid md:grid-cols-3 gap-4 px-[24px] md:px-0 py-[24px]">
               {filteredRestaurants.map((restaurant, index) => (
                 <div
                   key={index}
-                  className="shadow border-0 rounded-[8px] overflow-hidden"
+                  className="shadow border-0 rounded-[8px] overflow-hidden hover:scale-[0.95] hover:origin-center transition"
                 >
                   <Link
                     to={{
@@ -138,7 +137,7 @@ const EcommercePage = () => {
                       src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
                     />
                   </Link>
-                  <div className=" p-[15px]">
+                  <div className="p-[15px]">
                     <Link
                       to={{
                         pathname: `/restaurant/${restaurant.info.id}`,
@@ -191,7 +190,7 @@ const EcommercePage = () => {
         handleLogin={handleLogin}
       />
       <Footer />
-    </EcommercePageStyles>
+    </>
   );
 };
 

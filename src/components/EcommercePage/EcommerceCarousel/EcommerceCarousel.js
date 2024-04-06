@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { EcommerceCarouselStyles } from "./Styles";
 import { ChevronLeft, ChevronRight } from "react-bootstrap-icons";
 
 function EcommerceCarousel() {
@@ -66,11 +65,11 @@ function EcommerceCarousel() {
   };
 
   return (
-    <EcommerceCarouselStyles>
-      <div className="carousel relative rounded-[10px] overflow-hidden">
+    <>
+      <div className="carousel relative md:rounded-[10px] overflow-hidden">
         {carouselDetails.length > 0 && (
           <img
-            className="object-cover w-full animate-fade-in-out"
+            className="object-cover w-full animate-fade-in-out h-[250px] md:h-[400px]"
             src={carouselDetails[carouselIndex].imageUrl}
             alt={`${carouselDetails[carouselIndex].name} Pic`}
           />
@@ -84,12 +83,12 @@ function EcommerceCarousel() {
             ></span>
           ))}
         </div>
-        <div className="carousel-caption p-2 bg-black bg-opacity-50 text-white">
+        <div className="carousel-caption-bx p-2 bg-black bg-opacity-50 text-white w-full absolute bottom-0 left-0 text-center">
           <Link
             to={`/restaurant/${carouselDetails[carouselIndex]?.id}`}
             className="text-decoration-none text-white"
           >
-            <h1 className="text-3xl md:text-2xl">
+            <h1 className="text-xl md:text-2xl">
               {carouselDetails[carouselIndex]?.name}
             </h1>
             <h3 className="text-xl">
@@ -113,7 +112,7 @@ function EcommerceCarousel() {
           <ChevronRight />
         </button>
       </div>
-    </EcommerceCarouselStyles>
+    </>
   );
 }
 
