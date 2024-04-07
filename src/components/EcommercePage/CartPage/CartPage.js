@@ -24,7 +24,7 @@ const CartPage = ({ cartItems, removeFromCart, addToCart }) => {
               <td className="text-center p-[10px] border border-black">{index + 1}</td>
               <td className="border border-black p-[10px]">{item.info.name}</td>
               <td className="border border-black p-[10px]">{item.info.costForTwo}</td>
-              <td className="text-center border border-black p-[10px]">
+              <td className="text-center border border-black md:p-[10px]">
                 <button className="bg-red-600 py-[7px] px-[12px] text-white rounded" onClick={() => removeFromCart(index)}>
                   <DashLg />
                 </button>

@@ -1,26 +1,8 @@
-import React from "react";
-import {
-  Navbar,
-  Container,
-  Nav,
-  Form,
-  FormControl,
-  Button,
-  Dropdown,
-  Table,
-} from "react-bootstrap";
-import {
-  Cart,
-  Cart3,
-  DashLg,
-  PersonCircle,
-  PlusLg,
-  Search,
-} from "react-bootstrap-icons";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../logo.svg";
 import { useAuth0 } from "@auth0/auth0-react";
-import { NavBarStyles } from "./Styles";
+import logo from "../../../logo.svg";
+import { PersonCircle, Search } from "react-bootstrap-icons";
 
 const NavBar = ({
   loggedInUser,
@@ -34,160 +16,152 @@ const NavBar = ({
   addToCart,
 }) => {
   const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+
+  const toggleMobileNav = () => {
+    setMobileNavOpen(!isMobileNavOpen);
+  };
+
   return (
-    <NavBarStyles>
-      <Navbar
-        collapseOnSelect
-        expand="lg"
-        bg="dark"
-        variant="dark"
-        className="position-sticky top-0 start-0 z-3"
-      >
-        <Container>
-          <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
-            <img src={logo} className="App-logo" alt="Logo" height="30" />
-            <strong className="fs-2">E-commerce</strong>
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="w-100">
-              <Nav.Link href="#" className="w-100">
-                <Form className="d-flex align-items-center" inline>
-                  <FormControl
-                    type="search"
-                    placeholder="Search"
-                    className="mr-2"
-                    aria-label="Search"
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <Search />
-                </Form>
-              </Nav.Link>
-              <Nav.Link href="#">
-                <Dropdown className="d-flex justify-content-center">
-                  <Dropdown.Toggle
-                    variant="success"
-                    id="dropdown-basic"
-                    className="d-inline-flex align-items-center fw-bold"
+    <>
+      <nav className="bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex-shrink-0 flex items-center">
+              <Link to="/">
+                <img className="h-8 App-logo" src={logo} alt="Logo" />
+              </Link>
+              <strong className="ml-2 text-white text-2xl">E-commerce</strong>
+            </div>
+            <div className="sm:hidden">
+              <button
+                onClick={toggleMobileNav}
+                className="block text-gray-500 hover:text-white focus:text-white focus:outline-none"
+              >
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  {isMobileNavOpen ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 6h16M4 12h16m-7 6h7"
+                    />
+                  )}
+                </svg>
+              </button>
+            </div>
+            <div className="hidden sm:flex sm:items-center sm:justify-end">
+              <div className="hidden sm:block sm:ml-6">
+                <div className="flex space-x-4">
+                  <form
+                    className="flex w-full"
+                    onSubmit={(e) => e.preventDefault()}
+                  >
+                    <input
+                      className="p-2 border border-gray-600 rounded-l-md w-full"
+                      type="search"
+                      placeholder="Search"
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <button
+                      type="submit"
+                      className=" bg-white text-black p-2 rounded-r-md"
+                    >
+                      <Search/>
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <div className="ml-6">
+                <div className="flex space-x-4 font-medium">
+                  <button
+                    onClick={() => setShowLogin(true)}
+                    className="bg-gray-600 text-white px-3 py-2 rounded-md flex items-center"
                   >
                     <PersonCircle className="me-2" />{" "}
                     {loggedInUser ? loggedInUser : "Profile"}
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    {loggedInUser ? (
-                      <Dropdown.Item onClick={handleLogout}>
-                        Logout
-                      </Dropdown.Item>
-                    ) : (
-                      <>
-                        <Dropdown.Item onClick={() => setShowLogin(true)}>
-                          Login
-                        </Dropdown.Item>
-                        {isAuthenticated ? (
-                          <Dropdown.Item
-                            onClick={() =>
-                              logout({
-                                logoutParams: {
-                                  returnTo: window.location.origin,
-                                },
-                              })
-                            }
-                          >
-                            Log Out
-                          </Dropdown.Item>
-                        ) : (
-                          <Dropdown.Item onClick={() => loginWithRedirect()}>
-                            Sign In With Social Domain
-                          </Dropdown.Item>
-                        )}
-                      </>
-                    )}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Nav.Link>
-              <Nav.Link href="#cart">
-                <Dropdown className="d-flex justify-content-center">
-                  <Dropdown.Toggle
-                    variant="primary"
-                    id="cart-dropdown"
-                    className="d-flex align-items-center position-relative"
+                  </button>
+                  <button
+                    onClick={() => setShowCart(true)}
+                    className="bg-gray-600 text-white px-3 py-2 rounded-md"
                   >
-                    <Cart className="me-2" />
-                    <strong>Cart</strong>{" "}
-                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                      {cartLength}
-                    </span>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu
-                    className="end-0 p-0 overflow-auto shadow-lg bg-body-tertiary rounded"
-                    style={{
-                      left: "initial",
-                      width: "max-content",
-                      maxHeight: "350px",
-                    }}
+                    Cart ({cartLength})
+                  </button>
+                  <button
+                    onClick={
+                      isAuthenticated
+                        ? () => logout()
+                        : () => loginWithRedirect()
+                    }
+                    className="bg-gray-600 text-white px-3 py-2 rounded-md"
                   >
-                    <Table
-                      bordered
-                      hover
-                      style={{ verticalAlign: "middle" }}
-                      className="mb-0"
-                    >
-                      <thead className="position-sticky top-0 shadow table-info">
-                        <tr>
-                          <th>S. No.</th>
-                          <th>Restaurant</th>
-                          <th>Price</th>
-                          <th className="text-center">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {cartItems.map((item, index) => (
-                          <tr key={index}>
-                            <td className="text-center">{index + 1}.</td>
-                            <td>{item.info.name}</td>
-                            <td>{item.info.costForTwo}</td>
-                            <td>
-                              <Button
-                                variant="danger"
-                                className="w-50 d-inline-flex align-items-center"
-                                onClick={() => removeFromCart(index)}
-                              >
-                                <DashLg />
-                              </Button>
-                              <Button
-                                variant="success"
-                                className="w-50 d-inline-flex align-items-center"
-                                onClick={() => addToCart(index)}
-                              >
-                                <PlusLg />
-                              </Button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                      <tfoot className="position-sticky bottom-0 table-info">
-                        <tr>
-                          <td colSpan={4} align="center">
-                            <Button
-                              variant="primary"
-                              onClick={() => setShowCart(true)}
-                              className="d-flex align-items-center"
-                            >
-                              <Cart3 className="me-2" /> Go To Cart
-                            </Button>
-                          </td>
-                        </tr>
-                      </tfoot>
-                    </Table>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </NavBarStyles>
+                    {isAuthenticated ? "Logout" : "Sign In With Social"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className={`${
+            isMobileNavOpen ? "block" : "hidden"
+          } sm:hidden transition-all duration-300`}
+        >
+          {/* Mobile menu items */}
+          <hr className="m-0 bg-white" />
+          <div className="px-2 py-3 space-y-1 flex flex-col">
+            <form className="flex w-full" onSubmit={(e) => e.preventDefault()}>
+              <input
+                className="p-2 border border-gray-600 rounded-l-md w-full"
+                type="search"
+                placeholder="Search"
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button
+                type="submit"
+                className=" bg-white text-black p-2 rounded-r-md"
+              >
+                <Search/>
+              </button>
+            </form>
+            <button
+              onClick={() => setShowLogin(true)}
+              className="text-white px-3 py-2 rounded-md font-medium flex items-center justify-center hover:bg-gray-700"
+            >
+              <PersonCircle className="me-2" />{" "}
+              {loggedInUser ? loggedInUser : "Profile"}
+            </button>
+            <button
+              onClick={() => setShowCart(true)}
+              className="block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-gray-700"
+            >
+              Cart ({cartLength})
+            </button>
+            <button
+              onClick={
+                isAuthenticated ? () => logout() : () => loginWithRedirect()
+              }
+              className="block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-gray-700"
+            >
+              {isAuthenticated ? "Logout" : "Sign In With Social"}
+            </button>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 };
 
