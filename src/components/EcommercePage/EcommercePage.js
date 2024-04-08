@@ -93,7 +93,7 @@ const EcommercePage = () => {
         removeFromCart={removeFromCart}
         addToCart={addToCart}
       />
-      <div className="mx-auto max-w-[1140px] pt-[24px]">
+      <div className="mx-auto max-w-[1140px] pt-[64px]">
         {showCart ? (
           <CartPage
             cartItems={cartItems}
@@ -103,7 +103,7 @@ const EcommercePage = () => {
         ) : (
           <>
             <EcommerceCarousel />
-            <div className="overflow-auto mw-100 text-nowrap mt-[24px] bg-slate-500 text-white text-[18px] font-medium">
+            <div className="overflow-auto mw-100 text-nowrap mt-[24px] bg-slate-500 text-white text-[18px] font-medium sticky top-[63px] z-10">
               <button className="p-[10px]" onClick={() => setSelectedCuisine()}>
                 All
               </button>
@@ -122,21 +122,15 @@ const EcommercePage = () => {
               {filteredRestaurants.map((restaurant, index) => (
                 <div
                   key={index}
-                  className="shadow border-0 rounded-[8px] overflow-hidden hover:scale-[0.95] hover:origin-center transition"
+                  className="shadow border-0 rounded-[8px] overflow-hidden"
                 >
-                  <Link
-                    to={{
-                      pathname: `/restaurant/${restaurant.info.id}`,
-                      state: { restaurantData: restaurant },
-                    }}
-                    className="text-decoration-none"
-                  >
-                    <img
-                      className="h-[200px] w-full object-cover"
-                      alt={restaurant.info.cloudinaryImageId}
-                      src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
-                    />
-                  </Link>
+                  <div className="overflow-hidden bg-[rgba(0,0,0,0.9)] hover:bg-[rgba(0,0,0,1)] delay-75">
+                  <img
+                    className="h-[200px] w-full object-cover opacity-[0.6] hover:opacity-[1] scale-[1.15] hover:scale-[1.03] hover:origin-center transition"
+                    alt={restaurant.info.cloudinaryImageId}
+                    src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant.info.cloudinaryImageId}`}
+                  />
+                  </div>
                   <div className="p-[15px]">
                     <Link
                       to={{
