@@ -24,7 +24,7 @@ const EcommercePage = () => {
     const fetchRestaurants = async () => {
       try {
         const response = await fetch(
-          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.446009&lng=77.065463&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+          "https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.446009&lng=77.065463&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         );
         const data = await response.json();
         setRestaurants(
