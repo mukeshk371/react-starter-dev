@@ -66,7 +66,7 @@ function EcommerceCarousel() {
 
   return (
     <>
-      <div className="carousel relative md:rounded-[10px] overflow-hidden">
+      <div className="carousel relative md:rounded-[10px] overflow-hidden md:mt-[24px]">
         {carouselDetails.length > 0 && (
           <img
             className="object-cover w-full animate-fade-in-out h-[250px] md:h-[400px]"
