@@ -103,7 +103,7 @@ const EcommercePage = () => {
         ) : (
           <>
             <EcommerceCarousel />
-            <div className="overflow-auto mw-100 text-nowrap mt-[24px] bg-slate-500 text-white text-[18px] font-medium sticky top-[63px] z-10">
+            <div className="overflow-auto mw-100 text-nowrap mt-[24px] bg-slate-500 text-white text-[18px] font-medium sticky top-[63px] z-[1]">
               <button className="p-[10px]" onClick={() => setSelectedCuisine()}>
                 All
               </button>
