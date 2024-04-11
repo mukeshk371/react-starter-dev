@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const LoginForm = ({ show, handleClose, handleLogin }) => {
   const [username, setUsername] = useState("");
@@ -30,44 +30,53 @@ const LoginForm = ({ show, handleClose, handleLogin }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Login</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
+    <div className={`${show ? "" : "hidden"} fixed inset-0 flex items-center justify-center z-50`}>
+      <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
+      <div className="bg-white rounded-lg p-8 max-w-md w-full z-10">
+        <h2 className="text-2xl font-bold mb-6">Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              Username
+            </label>
+            <input
               type="text"
+              id="username"
+              className={`mt-1 block w-full px-3 py-2 border ${errors.username ? "border-red-500" : "border-gray-300"
+                } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="Enter username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              isInvalid={!!errors.username}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.username}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="formBasicPassword" className="mt-3">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
+            {errors.username && <p className="text-red-500 mt-1 text-sm">{errors.username}</p>}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
               type="password"
+              id="password"
+              className={`mt-1 block w-full px-3 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
+                } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              isInvalid={!!errors.password}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.password}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Button variant="primary" type="submit" className="mt-3">
+            {errors.password && <p className="text-red-500 mt-1 text-sm">{errors.password}</p>}
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+          >
             Submit
-          </Button>
-        </Form>
-      </Modal.Body>
-    </Modal>
+          </button>
+          <div className="pt-4">
+            Don't have an account? <Link to="/sign-up" className="font-medium">Sign Up</Link>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 
