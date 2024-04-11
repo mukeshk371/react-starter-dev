@@ -21,6 +21,7 @@ import CardDetails from "./components/EcommercePage/CardDetails/CardDetails";
 import CheckoutPage from "./components/EcommercePage/CheckoutPage/CheckoutPage";
 import AboutUs from "./components/EcommercePage/AboutUs/AboutUs";
 import ContactUs from "./components/EcommercePage/ContactUs/ContactUs";
+import SignUpForm from "./components/EcommercePage/SignUpForm/SignUpForm";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage/>} />
         <Route path="/about-us" element={<AboutUs/>} />
         <Route path="/contact-us" element={<ContactUs/>} />
+        <Route path="/sign-up" element={<SignUpForm/>} />
       </Routes>
     </Router>
   );
