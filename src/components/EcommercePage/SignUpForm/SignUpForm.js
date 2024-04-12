@@ -71,7 +71,7 @@ const SignUpForm = () => {
           </div>
           {step === 1 && (
             <div className="flex flex-col">
-              <label className="block text-sm font-medium text-gray-700" htmlFor="firstName">First Name</label>
+              <label className={`block text-sm font-medium ${errors.firstName ? "text-red-500" : "text-gray-700"}`} htmlFor="firstName">First Name</label>
               <input
                 type="text"
                 id="firstName"
@@ -84,7 +84,7 @@ const SignUpForm = () => {
               {errors.firstName && (
                 <span className="text-red-500 mt-1 text-sm">{errors.firstName}</span>
               )}
-              <label className="block text-sm font-medium text-gray-700 mt-4" htmlFor="lastName">Last Name</label>
+              <label className={`block text-sm font-medium ${errors.lastName ? "text-red-500" : "text-gray-700"} mt-4`} htmlFor="lastName">Last Name</label>
               <input
                 type="text"
                 id="lastName"
@@ -101,7 +101,7 @@ const SignUpForm = () => {
           )}
           {step === 2 && (
             <div className="flex flex-col">
-              <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email</label>
+              <label className={`block text-sm font-medium ${errors.email ? "text-red-500" : "text-gray-700"}`} htmlFor="email">Email</label>
               <input
                 type="email"
                 id="email"
@@ -114,7 +114,7 @@ const SignUpForm = () => {
               {errors.email && (
                 <span className="text-red-500 mt-1 text-sm">{errors.email}</span>
               )}
-              <label className="block text-sm font-medium text-gray-700 mt-4" htmlFor="password">Password</label>
+              <label className={`block text-sm font-medium ${errors.password ? "text-red-500" : "text-gray-700"} mt-4`} htmlFor="password">Password</label>
               <input
                 type="password"
                 id="password"

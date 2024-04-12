@@ -22,10 +22,13 @@ import CheckoutPage from "./components/EcommercePage/CheckoutPage/CheckoutPage";
 import AboutUs from "./components/EcommercePage/AboutUs/AboutUs";
 import ContactUs from "./components/EcommercePage/ContactUs/ContactUs";
 import SignUpForm from "./components/EcommercePage/SignUpForm/SignUpForm";
+import NavBar from "./components/EcommercePage/NavBar/NavBar";
+import Footer from "./components/EcommercePage/Footer/Footer";
 
 function App() {
   return (
     <Router>
+      <NavBar />
       <Routes>
         <Route
           path="/card-content-slider-app"
@@ -50,11 +53,12 @@ function App() {
         <Route path="/cart-page" element={<CartPage />} />
         <Route index element={<Navigate to="/ecommerce-page" />} />
         <Route path="/restaurant/:id" element={<CardDetails />} />
-        <Route path="/checkout" element={<CheckoutPage/>} />
-        <Route path="/about-us" element={<AboutUs/>} />
-        <Route path="/contact-us" element={<ContactUs/>} />
-        <Route path="/sign-up" element={<SignUpForm/>} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/sign-up" element={<SignUpForm />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
