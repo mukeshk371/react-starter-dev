@@ -7,14 +7,10 @@ import { StarsStyles } from "./Styles";
 
 const NavBar = ({
   loggedInUser,
-  cartItems,
   setSearchQuery,
-  handleLogout,
   setShowLogin,
   setShowCart,
-  cartLength,
-  removeFromCart,
-  addToCart,
+  cartLength
 }) => {
   const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
@@ -30,7 +26,7 @@ const NavBar = ({
 
   return (
     <StarsStyles>
-      <nav className="bg-stars fixed top-0 w-full z-10">
+      <nav className="bg-stars fixed top-0 w-full z-20">
         <div id="stars"></div>
         <div id="stars2"></div>
         <div id="stars3"></div>
